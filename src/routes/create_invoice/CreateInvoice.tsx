@@ -2,31 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Select, DatePicker, InputNumber } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
+import { GET_CLIENTS } from "../../graphql/queries/Client";
+import { useQuery } from "@apollo/client";
 
 interface Client {
   name: string;
   adress: string;
   ico: string;
+  _id?: number;
 }
 
 export const CreateInvoice = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [invoices, setInvoices] = useState<any>();
 
-  useEffect(() => {
-    axios
-      .get("/api/clients")
-      .then(function (response) {
-        setClients(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-  }, []);
+  const { data, error, loading } = useQuery(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
     axios
@@ -60,9 +50,10 @@ export const CreateInvoice = () => {
       >
         <Form.Item label="Dodavatel" name="supplier">
           <Select placeholder="vzber dodavatele">
-            {clients.length &&
-              clients.map((client) => (
-                <Select.Option key={client.ico} value={client.ico}>
+            {!loading &&
+              data.getAllClients.length &&
+              data.getAllClients.map((client: Client) => (
+                <Select.Option key={client._id} value={client.ico}>
                   {client.name}: {client.adress}
                 </Select.Option>
               ))}
