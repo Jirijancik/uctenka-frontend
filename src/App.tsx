@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CreateInvoice } from "./routes/create_invoice/CreateInvoice";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { AuthPage } from "./routes/auth_page/AuthPage";
 
 function App() {
   const client = new ApolloClient({
@@ -14,7 +15,7 @@ function App() {
         <Router>
           <div>
             <Switch>
-              <Route path="/" component={CreateInvoice} />
+              <Route path="/" component={AuthPage} />
 
               <Route path="/users" />
             </Switch>
