@@ -1,21 +1,12 @@
 import { gql } from "@apollo/client";
 
-// export const GET_CLIENTSxxx = gql`
-//     query getAllClients({
-//     name
-//     adress
-//     ico
-//     _id
-//   })
-// `;
-
-export const GET_USERS = gql`
-  query getAllUsers {
-    getAllUsers {
-      name
-      email
-      password
-      _id
+export const LOGIN_USER = gql`
+  query loginUser($username: String!, $password: String!) {
+    loginUser(username: $username, password: $password) {
+      token
+      user {
+        username
+      }
     }
   }
 `;

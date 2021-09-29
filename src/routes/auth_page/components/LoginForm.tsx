@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../../graphql/mutations/User";
+import { useLazyQuery } from "@apollo/client";
 import { Button, Checkbox, Form, Input } from "antd";
+import { LOGIN_USER } from "../../../graphql/queries/User";
 
 export function LoginForm() {
-  const [loginData, setLoginData] = useState();
-  const [sessionData, setSessionData] = useState();
-  const [logoutData, setLogoutData] = useState();
-
-  const [loginUser] = useMutation(LOGIN_USER);
-
-  async function handleLogin(e: React.SyntheticEvent) {
-    e.preventDefault();
-
-    const target: any = e.target;
-    const email = target.email.value;
-    const password = target.password.value;
-
-    loginUser({
-      variables: {
-        email,
-        password,
-      },
-    })
-      .then((result) => console.log(result, "result"))
-      .catch((error) => console.log(error));
-  }
+  const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER);
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    loginUser({
+      variables: {
+        ...values,
+      },
+    });
+    console.log("Success:", data, values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:", errorInfo, error);
   };
 
   return (
@@ -46,6 +30,7 @@ export function LoginForm() {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        style={{ marginTop: 80 }}
       >
         <Form.Item
           label="Username"
@@ -73,9 +58,11 @@ export function LoginForm() {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Login
           </Button>
         </Form.Item>
+
+        {error && error.message}
       </Form>
     </>
   );

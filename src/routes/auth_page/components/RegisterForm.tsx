@@ -1,60 +1,80 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { Button, Form, Input } from "antd";
+import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../../../graphql/mutations/User";
 
-export function AuthPage() {
-  const [showingLogin, setShowingLogin] = useState(true);
-  const [loginData, setLoginData] = useState();
-  const [sessionData, setSessionData] = useState();
-  const [logoutData, setLogoutData] = useState();
-
-  //const { error, loading, data, refetch } = useQuery(GET_USERS);
-
+export function RegisterForm() {
   const [registerUser] = useMutation(REGISTER_USER);
 
-  async function handleRegisterUser(e: React.SyntheticEvent) {
-    e.preventDefault();
-
-    const target: any = e.target;
-    const email = target.email.value;
-    const name = target.name.value;
-    const password = target.password.value;
-
+  const onFinish = (values: any) => {
+    const newUser = values;
     registerUser({
       variables: {
-        email,
-        name,
-        password,
+        newUser,
       },
     })
-      //   .then(() => refetch())
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
-  }
+    console.log("done:", values);
+  };
 
   return (
-    <div>
-      <div
-        style={{
-          margin: 80,
-          padding: 20,
-          borderWidth: 1,
-          borderColor: "black",
-          borderStyle: "solid",
-        }}
+    <>
+      <Form
+        name="register"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        autoComplete="off"
+        style={{ marginTop: 80 }}
       >
-        <h2>Register new user</h2>
-        <form onSubmit={handleRegisterUser}>
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="jane.doe@example.com" />
-          <label htmlFor="name">Name</label>
-          <input type="name" id="name" placeholder="name" />
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="****" />
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-          <button type="submit">Register</button>
-        </form>
-      </div>
-    </div>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="FirstName"
+          name="firstName"
+          rules={[{ required: true, message: "Please input your firstName!" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="LastName"
+          name="lastName"
+          rules={[{ required: true, message: "Please input your lastName!" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
