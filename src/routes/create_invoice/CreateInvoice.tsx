@@ -16,7 +16,7 @@ export const CreateInvoice = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [invoices, setInvoices] = useState<any>();
 
-  const { data, error, loading } = useQuery(GET_CLIENTS);
+  //const { data, error, loading } = useQuery(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
     axios
@@ -48,7 +48,7 @@ export const CreateInvoice = () => {
         layout="horizontal"
         style={{ marginTop: 50 }}
       >
-        <Form.Item label="Dodavatel" name="supplier">
+        {/* <Form.Item label="Dodavatel" name="supplier">
           <Select placeholder="vzber dodavatele">
             {!loading &&
               data.getAllClients.length &&
@@ -58,7 +58,7 @@ export const CreateInvoice = () => {
                 </Select.Option>
               ))}
           </Select>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item label="Datum prijeti" name="acceptanceDate">
           <DatePicker />
@@ -136,6 +136,8 @@ export const CreateInvoice = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      <button onClick={() => localStorage.removeItem("token")}>LOGOUT</button>
     </>
   );
 };

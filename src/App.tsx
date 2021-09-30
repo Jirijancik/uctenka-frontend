@@ -55,18 +55,16 @@ const client = new ApolloClient({
 //   cache: new InMemoryCache(),
 // });
 
+const token = localStorage.getItem("token");
+
 function App() {
   return (
     <div>
       <ApolloProvider client={client}>
         <Router>
-          <div>
-            <Switch>
-              <Route path="/" component={AuthPage} />
-
-              <Route path="/users" />
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/" component={token ? CreateInvoice : AuthPage} />
+          </Switch>
         </Router>
       </ApolloProvider>
     </div>

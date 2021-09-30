@@ -4,8 +4,24 @@ import { useLazyQuery } from "@apollo/client";
 import { Button, Checkbox, Form, Input } from "antd";
 import { LOGIN_USER } from "../../../graphql/queries/User";
 
+interface LoginUserResponse {
+  loginUser: {
+    token: string;
+    user: {
+      username: string;
+    };
+  };
+}
+
 export function LoginForm() {
-  const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER);
+  const onLoginIn = ({ loginUser }: LoginUserResponse) => {
+    localStorage.setItem("token", loginUser.token);
+    localStorage.setItem("user", loginUser.user.username);
+  };
+
+  const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
+    onCompleted: onLoginIn,
+  });
 
   const onFinish = (values: any) => {
     loginUser({
@@ -13,11 +29,6 @@ export function LoginForm() {
         ...values,
       },
     });
-    console.log("Success:", data, values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo, error);
   };
 
   return (
@@ -28,7 +39,6 @@ export function LoginForm() {
         wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         style={{ marginTop: 80 }}
       >
