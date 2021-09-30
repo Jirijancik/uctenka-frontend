@@ -1,0 +1,13 @@
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(0, 0, 0, 0.226);
+  color: #fff;
+  text-align: center;
+  font-size: large;
+  font-weight: 700;
+}
+.site-layout .site-layout-background {
+  background: transparent;
+  height: calc(100vh - 160px);
+}
