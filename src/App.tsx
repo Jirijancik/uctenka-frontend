@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -61,17 +61,27 @@ const client = new ApolloClient({
 //   cache: new InMemoryCache(),
 // });
 
-const token = localStorage.getItem("token");
+const getToken = () => sessionStorage.getItem("token");
 
 function App() {
+  const token = getToken();
+  const [isAuth, setIsAuth] = useState(token);
+
+  useEffect(() => {
+    if (!isAuth) {
+      setIsAuth(getToken());
+    }
+  }, [isAuth, token]);
+
   return (
     <div>
       <ApolloProvider client={client}>
         <Router>
           <Switch>
-            <Route path="/" component={token ? Root : AuthPage} />
+            {!isAuth ? <Redirect to="login" /> : <Redirect to="/" />}
+            <Route path="/login" component={AuthPage} />
+            <Route path="/" component={AuthPage} />
             <Route path="" component={PageNotFound} />
-            <Redirect to="/dashboard" />
           </Switch>
         </Router>
       </ApolloProvider>

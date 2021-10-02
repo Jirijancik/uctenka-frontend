@@ -2,6 +2,7 @@ import React from "react";
 import { useLazyQuery } from "@apollo/client";
 import { Button, Checkbox, Form, Input } from "antd";
 import { LOGIN_USER } from "../../../graphql/queries/User";
+import { useHistory } from "react-router";
 
 interface LoginUserResponse {
   loginUser: {
@@ -13,9 +14,12 @@ interface LoginUserResponse {
 }
 
 export function LoginForm() {
+  const history = useHistory();
+
   const onLoginIn = ({ loginUser }: LoginUserResponse) => {
-    localStorage.setItem("token", loginUser.token);
-    localStorage.setItem("user", loginUser.user.username);
+    sessionStorage.setItem("token", loginUser.token);
+    sessionStorage.setItem("user", loginUser.user.username);
+    history.push("/dashboard");
   };
 
   const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
