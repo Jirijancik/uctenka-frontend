@@ -17,7 +17,8 @@ import { setContext } from "@apollo/client/link/context";
 import Cookies from "js-cookie";
 import { Root } from "./Root";
 import { PageNotFound } from "./Pages/PageNotFound/PageNotFound";
-
+import { RecoilRoot, useRecoilState } from "recoil";
+import { isAuthenticated } from "./routes/auth_page/store/isAuthenticated";
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
 
 const httpLink = new HttpLink({
@@ -64,14 +65,15 @@ const client = new ApolloClient({
 const getToken = () => sessionStorage.getItem("token");
 
 function App() {
-  const token = getToken();
-  const [isAuth, setIsAuth] = useState(token);
+  const [isAuth, setIsAuth] = useRecoilState(isAuthenticated);
 
   useEffect(() => {
     if (!isAuth) {
-      setIsAuth(getToken());
+      setIsAuth(Boolean(getToken()));
     }
-  }, [isAuth, token]);
+  }, [isAuth]);
+
+  // use this https://reactrouter.com/web/example/auth-workflow
 
   return (
     <div>
@@ -79,7 +81,10 @@ function App() {
         <Router>
           <Switch>
             <Route path="/">
-              {isAuth ? <Redirect to="/dashboard" /> : <AuthPage />}
+              {isAuth ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/login">
+              <AuthPage></AuthPage>
             </Route>
             <Route path="/dashboard" component={Root} />
             <Route path="" component={PageNotFound} />
