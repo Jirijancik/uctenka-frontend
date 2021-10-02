@@ -78,9 +78,10 @@ function App() {
       <ApolloProvider client={client}>
         <Router>
           <Switch>
-            {!isAuth ? <Redirect to="login" /> : <Redirect to="/" />}
-            <Route path="/login" component={AuthPage} />
-            <Route path="/" component={AuthPage} />
+            <Route path="/">
+              {isAuth ? <Redirect to="/dashboard" /> : <AuthPage />}
+            </Route>
+            <Route path="/dashboard" component={Root} />
             <Route path="" component={PageNotFound} />
           </Switch>
         </Router>
