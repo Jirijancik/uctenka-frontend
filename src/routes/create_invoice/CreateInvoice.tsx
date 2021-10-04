@@ -16,7 +16,7 @@ export const CreateInvoice = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [invoices, setInvoices] = useState<any>();
 
-  //const { data, error, loading } = useQuery(GET_CLIENTS);
+  const { data, error, loading } = useQuery(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
     axios

@@ -81,7 +81,11 @@ function App() {
         <Router>
           <Switch>
             <Route path="/">
-              {isAuth ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+              {!isAuth ? (
+                <Redirect to="/dashboard" />
+              ) : (
+                <Redirect to="/login" />
+              )}
             </Route>
             <Route path="/login">
               <AuthPage></AuthPage>
