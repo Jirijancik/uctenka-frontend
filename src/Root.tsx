@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Redirect, Switch, Route } from "react-router-dom";
 import { CreateInvoice } from "./routes/create_invoice/CreateInvoice";
 import {
   ApolloClient,
@@ -13,19 +13,30 @@ import { setContext } from "@apollo/client/link/context";
 import Cookies from "js-cookie";
 import { Layout } from "./Pages/Layout/Layout";
 import { Dashboard } from "./routes/dashboard/Dashboard";
+import ProtectedRoute, { ProtectedRouteProps } from "./Router/ProtectedRoute";
 
-export function Root() {
+interface RootProps {
+  defaultProtectedRouteProps: ProtectedRouteProps;
+}
+
+export const Root: React.VFC<RootProps> = ({ defaultProtectedRouteProps }) => {
   //
   return (
     <Layout>
       <Switch>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
-        <Route path="/faktury">
-          <CreateInvoice />
-        </Route>
+        <ProtectedRoute
+          {...defaultProtectedRouteProps}
+          path="/dashboard"
+          component={Dashboard}
+        />
+        <ProtectedRoute
+          {...defaultProtectedRouteProps}
+          path="/invoices"
+          component={CreateInvoice}
+        />
+
+        <Redirect to="/dashboard"></Redirect>
       </Switch>
     </Layout>
   );
-}
+};

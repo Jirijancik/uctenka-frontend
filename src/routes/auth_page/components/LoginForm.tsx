@@ -3,6 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import { Button, Checkbox, Form, Input } from "antd";
 import { LOGIN_USER } from "../../../graphql/queries/User";
 import { useHistory } from "react-router";
+import { useSessionContext } from "../../../Router/SessionContext";
 
 interface LoginUserResponse {
   loginUser: {
@@ -16,10 +17,13 @@ interface LoginUserResponse {
 export function LoginForm() {
   const history = useHistory();
 
+  const [session, setSession] = useSessionContext();
+
   const onLoginIn = ({ loginUser }: LoginUserResponse) => {
     sessionStorage.setItem("token", loginUser.token);
     sessionStorage.setItem("user", loginUser.user.username);
-    history.push("/dashboard");
+    setSession({ ...session, isAuthenticated: true });
+    history.push(session.redirectPath);
   };
 
   const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {

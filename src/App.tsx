@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  Link,
 } from "react-router-dom";
 import {
   ApolloClient,
@@ -19,6 +20,10 @@ import { Root } from "./Root";
 import { PageNotFound } from "./Pages/PageNotFound/PageNotFound";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { isAuthenticated } from "./routes/auth_page/store/isAuthenticated";
+import { useSessionContext } from "./Router/SessionContext";
+import ProtectedRoute, { ProtectedRouteProps } from "./Router/ProtectedRoute";
+import { Dashboard } from "./routes/dashboard/Dashboard";
+import { CreateInvoice } from "./routes/create_invoice/CreateInvoice";
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
 
 const httpLink = new HttpLink({
@@ -62,38 +67,64 @@ const client = new ApolloClient({
 //   cache: new InMemoryCache(),
 // });
 
+const Homepage = () => (
+  <div>
+    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{" "}
+  </div>
+);
+
 const getToken = () => sessionStorage.getItem("token");
 
 function App() {
-  const [isAuth, setIsAuth] = useRecoilState(isAuthenticated);
+  const [sessionContext, updateSessionContext] = useSessionContext();
+
+  const setRedirectPath = (path: string) => {
+    updateSessionContext({ ...sessionContext, redirectPath: path });
+  };
+
+  const defaultProtectedRouteProps: ProtectedRouteProps = {
+    isAuthenticated: !!sessionContext.isAuthenticated,
+    authenticationPath: "/login",
+    redirectPath: sessionContext.redirectPath,
+    setRedirectPath: setRedirectPath,
+  };
 
   useEffect(() => {
-    if (!isAuth) {
-      setIsAuth(Boolean(getToken()));
-    }
-  }, [isAuth]);
+    updateSessionContext({
+      ...sessionContext,
+      isAuthenticated: Boolean(getToken()),
+    });
+  }, []);
 
-  // use this https://reactrouter.com/web/example/auth-workflow
+  console.log(sessionContext, "sessionContext");
 
   return (
     <div>
       <ApolloProvider client={client}>
-        <Router>
-          <Switch>
-            <Route path="/">
-              {!isAuth ? (
-                <Redirect to="/dashboard" />
-              ) : (
-                <Redirect to="/login" />
-              )}
-            </Route>
-            <Route path="/login">
-              <AuthPage></AuthPage>
-            </Route>
-            <Route path="/dashboard" component={Root} />
-            <Route path="" component={PageNotFound} />
-          </Switch>
-        </Router>
+        <Switch>
+          <Route exact={true} path="/" component={Homepage} />
+
+          <ProtectedRoute
+            {...defaultProtectedRouteProps}
+            path="/dashboard"
+            component={Dashboard}
+          />
+          <ProtectedRoute
+            {...defaultProtectedRouteProps}
+            path="/invoices"
+            component={CreateInvoice}
+          />
+
+          {/* 
+<Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
+
+
+          {Boolean(sessionContext.isAuthenticated) && (
+            <Redirect to="/dashboard" />
+          )} */}
+
+          <Route path="/login" component={AuthPage} />
+        </Switch>
       </ApolloProvider>
     </div>
   );

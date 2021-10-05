@@ -1,15 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css";
 import { RecoilRoot } from "recoil";
+import { SessionContextProvider } from "./Router/SessionContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+    <BrowserRouter>
+      <RecoilRoot>
+        <SessionContextProvider>
+          <App />
+        </SessionContextProvider>
+      </RecoilRoot>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

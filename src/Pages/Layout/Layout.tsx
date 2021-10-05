@@ -26,7 +26,7 @@ export function Layout(props: any) {
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>
           <SubMenu key="2" icon={<ContainerOutlined />} title="Faktury">
-            <Link to="faktury">
+            <Link to="invoice">
               <Menu.Item key="3">Faktury Prijate</Menu.Item>
             </Link>
           </SubMenu>
