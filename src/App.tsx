@@ -115,11 +115,11 @@ function App() {
             component={CreateInvoice}
           />
 
-          <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
+          {/* <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
 
           {Boolean(sessionContext.isAuthenticated) && (
             <Redirect to="/dashboard" />
-          )}
+          )} */}
 
           <Route path="/login" component={AuthPage} />
         </Switch>
