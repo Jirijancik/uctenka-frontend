@@ -1,9 +1,9 @@
-import React from "react";
-import { useLazyQuery } from "@apollo/client";
-import { Button, Checkbox, Form, Input } from "antd";
-import { LOGIN_USER } from "../../../graphql/queries/User";
-import { useHistory } from "react-router";
-import { useSessionContext } from "../../../Router/SessionContext";
+import React from 'react';
+import { useLazyQuery } from '@apollo/client';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { useHistory } from 'react-router';
+import { LOGIN_USER } from '../../../graphql/queries/User';
+import { useSessionContext } from '../../../Router/SessionContext';
 
 interface LoginUserResponse {
   loginUser: {
@@ -20,8 +20,8 @@ export function LoginForm() {
   const [session, setSession] = useSessionContext();
 
   const onLoginIn = ({ loginUser }: LoginUserResponse) => {
-    sessionStorage.setItem("token", loginUser.token);
-    sessionStorage.setItem("user", loginUser.user.username);
+    sessionStorage.setItem('token', loginUser.token);
+    sessionStorage.setItem('user', loginUser.user.username);
     setSession({ ...session, isAuthenticated: true });
     history.push(session.redirectPath);
   };
@@ -52,7 +52,7 @@ export function LoginForm() {
         <Form.Item
           label="Username"
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: 'Please input your username!' }]}
         >
           <Input />
         </Form.Item>
@@ -60,7 +60,7 @@ export function LoginForm() {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password />
         </Form.Item>

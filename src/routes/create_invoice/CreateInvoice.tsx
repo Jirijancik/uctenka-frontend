@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, DatePicker, InputNumber } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import axios from "axios";
-import { GET_CLIENTS } from "../../graphql/queries/Client";
-import { useQuery } from "@apollo/client";
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Button, Select, DatePicker, InputNumber } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import axios from 'axios';
+import { useQuery } from '@apollo/client';
+import { GET_CLIENTS } from '../../graphql/queries/Client';
 
 interface Client {
   name: string;
@@ -20,15 +20,15 @@ export const CreateInvoice = () => {
 
   const handleOnFinish = (item: any) => {
     axios
-      .get("/api/invoices")
-      .then(function (response) {
+      .get('/api/invoices')
+      .then(response => {
         setInvoices(response.data);
       })
-      .catch(function (error) {
+      .catch(error => {
         // handle error
         console.log(error);
       })
-      .then(function () {
+      .then(() => {
         // always executed
       });
 
@@ -94,30 +94,14 @@ export const CreateInvoice = () => {
 
         <Form.Item label="Kod DPH" name="taxCode">
           <Select>
-            <Select.Option value="one">
-              Prijeti sluzby z tuzemska - zakladni
-            </Select.Option>
-            <Select.Option value="two">
-              Prijeti sluzby ze zahranici - zakladni
-            </Select.Option>
-            <Select.Option value="three">
-              Prijeti sluzby z tuzemska - snizena
-            </Select.Option>
-            <Select.Option value="four">
-              Prijeti sluzby ze zahranici - snizena
-            </Select.Option>
-            <Select.Option value="five">
-              Prijeti zbozi z tuzemska - zakladni
-            </Select.Option>
-            <Select.Option value="six">
-              Prijeti zbozi ze zahranici - zakladni
-            </Select.Option>
-            <Select.Option value="seven">
-              Prijeti zbozi z tuzemska - snizena
-            </Select.Option>
-            <Select.Option value="eight">
-              Prijeti zbozi ze zahranici - snizena
-            </Select.Option>
+            <Select.Option value="one">Prijeti sluzby z tuzemska - zakladni</Select.Option>
+            <Select.Option value="two">Prijeti sluzby ze zahranici - zakladni</Select.Option>
+            <Select.Option value="three">Prijeti sluzby z tuzemska - snizena</Select.Option>
+            <Select.Option value="four">Prijeti sluzby ze zahranici - snizena</Select.Option>
+            <Select.Option value="five">Prijeti zbozi z tuzemska - zakladni</Select.Option>
+            <Select.Option value="six">Prijeti zbozi ze zahranici - zakladni</Select.Option>
+            <Select.Option value="seven">Prijeti zbozi z tuzemska - snizena</Select.Option>
+            <Select.Option value="eight">Prijeti zbozi ze zahranici - snizena</Select.Option>
             <Select.Option value="nine">Nezahrnovat</Select.Option>
           </Select>
         </Form.Item>
@@ -137,7 +121,7 @@ export const CreateInvoice = () => {
         </Form.Item>
       </Form>
 
-      <button onClick={() => localStorage.removeItem("token")}>LOGOUT</button>
+      <button onClick={() => localStorage.removeItem('token')}>LOGOUT</button>
     </>
   );
 };

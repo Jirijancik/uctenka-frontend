@@ -1,32 +1,23 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 export type Session = {
   isAuthenticated?: boolean;
   redirectPath: string;
 };
 
-const getToken = () => sessionStorage.getItem("token");
+const getToken = () => sessionStorage.getItem('token');
 
 export const initialSession: Session = {
-  redirectPath: "/dashboard",
+  redirectPath: '/dashboard',
   isAuthenticated: Boolean(getToken()),
 };
 
-export const SessionContext = createContext<
-  [Session, (session: Session) => void]
->([initialSession, () => {}]);
+export const SessionContext = createContext<[Session, (session: Session) => void]>([initialSession, () => {}]);
 export const useSessionContext = () => useContext(SessionContext);
 
-export const SessionContextProvider: React.FC = (props) => {
+export const SessionContextProvider: React.FC = props => {
   const [sessionState, setSessionState] = useState(initialSession);
-  const defaultSessionContext: [Session, typeof setSessionState] = [
-    sessionState,
-    setSessionState,
-  ];
+  const defaultSessionContext: [Session, typeof setSessionState] = [sessionState, setSessionState];
 
-  return (
-    <SessionContext.Provider value={defaultSessionContext}>
-      {props.children}
-    </SessionContext.Provider>
-  );
+  return <SessionContext.Provider value={defaultSessionContext}>{props.children}</SessionContext.Provider>;
 };

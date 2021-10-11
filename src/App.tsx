@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
   Link,
-} from "react-router-dom";
+} from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
   HttpLink,
-} from "@apollo/client";
-import { AuthPage } from "./routes/auth_page/AuthPage";
-import { setContext } from "@apollo/client/link/context";
-import Cookies from "js-cookie";
-import { Root } from "./Root";
-import { PageNotFound } from "./Pages/PageNotFound/PageNotFound";
-import { RecoilRoot, useRecoilState } from "recoil";
-import { isAuthenticated } from "./routes/auth_page/store/isAuthenticated";
-import { useSessionContext } from "./Router/SessionContext";
-import ProtectedRoute, { ProtectedRouteProps } from "./Router/ProtectedRoute";
-import { Dashboard } from "./routes/dashboard/Dashboard";
-import { CreateInvoice } from "./routes/create_invoice/CreateInvoice";
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import Cookies from 'js-cookie';
+import { RecoilRoot, useRecoilState } from 'recoil';
+import { AuthPage } from './routes/auth_page/AuthPage';
+import { Root } from './Root';
+import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
+import { isAuthenticated } from './routes/auth_page/store/isAuthenticated';
+import { useSessionContext } from './Router/SessionContext';
+import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
+import { Dashboard } from './routes/dashboard/Dashboard';
+import { CreateInvoice } from './routes/create_invoice/CreateInvoice';
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: 'http://localhost:4000/graphql',
   //  credentials: "include",
   // headers: {
   //   authorization: `Bearer ${token}`,
@@ -69,11 +69,11 @@ const client = new ApolloClient({
 
 const Homepage = () => (
   <div>
-    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{" "}
+    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{' '}
   </div>
 );
 
-const getToken = () => sessionStorage.getItem("token");
+const getToken = () => sessionStorage.getItem('token');
 
 function App() {
   const [sessionContext, updateSessionContext] = useSessionContext();
@@ -84,9 +84,9 @@ function App() {
 
   const defaultProtectedRouteProps: ProtectedRouteProps = {
     isAuthenticated: !!sessionContext.isAuthenticated,
-    authenticationPath: "/login",
+    authenticationPath: '/login',
     redirectPath: sessionContext.redirectPath,
-    setRedirectPath: setRedirectPath,
+    setRedirectPath,
   };
 
   useEffect(() => {
@@ -96,13 +96,13 @@ function App() {
     });
   }, []);
 
-  console.log(sessionContext, "sessionContext");
+  console.log(sessionContext, 'sessionContext');
 
   return (
     <div>
       <ApolloProvider client={client}>
         <Switch>
-          <Route exact={true} path="/" component={Homepage} />
+          <Route exact path="/" component={Homepage} />
 
           <ProtectedRoute
             {...defaultProtectedRouteProps}
