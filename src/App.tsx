@@ -110,7 +110,6 @@ const App: React.VFC = () => {
 
 export default App;
 
-
 // "devDependencies": {
 //   "@babel/eslint-parser": "^7.15.4",
 //   "@babel/preset-react": "^7.14.5",

@@ -17,8 +17,8 @@ export const Root: React.VFC<RootProps> = ({ defaultProtectedRouteProps }) => (
   //
   <Layout>
     <Switch>
-      <ProtectedRoute {...defaultProtectedRouteProps} path="/dashboard" component={Dashboard} />
-      <ProtectedRoute {...defaultProtectedRouteProps} path="/invoices" component={CreateInvoice} />
+      <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/dashboard" />
+      <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" />
 
       <Redirect to="/dashboard" />
     </Switch>
