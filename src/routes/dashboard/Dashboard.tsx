@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, PageHeader } from 'antd';
 
-export function Dashboard() {
+export function Dashboard(): JSX.Element {
   //
 
   return (

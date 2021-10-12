@@ -21,7 +21,7 @@ export function Layout(props: any) {
         }}
       >
         <div className="logo">UCTENKA</div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+        <Menu defaultSelectedKeys={['1']} mode="inline" theme="dark">
           <Menu.Item key="1" icon={<ProjectOutlined />}>
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>

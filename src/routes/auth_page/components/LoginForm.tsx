@@ -26,12 +26,12 @@ export function LoginForm() {
     history.push(session.redirectPath);
   };
 
-  const [loginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
+  const [fetchLoginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
     onCompleted: onLoginIn,
   });
 
   const onFinish = (values: any) => {
-    loginUser({
+    fetchLoginUser({
       variables: {
         ...values,
       },
@@ -41,13 +41,13 @@ export function LoginForm() {
   return (
     <>
       <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
         autoComplete="off"
+        initialValues={{ remember: true }}
+        labelCol={{ span: 8 }}
+        name="basic"
         style={{ marginTop: 80 }}
+        wrapperCol={{ span: 16 }}
+        onFinish={onFinish}
       >
         <Form.Item
           label="Username"
@@ -65,16 +65,12 @@ export function LoginForm() {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
+        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" type="primary">
             Login
           </Button>
         </Form.Item>

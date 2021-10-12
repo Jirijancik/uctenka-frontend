@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  Link,
-} from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-  HttpLink,
-} from '@apollo/client';
+import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Cookies from 'js-cookie';
 import { RecoilRoot, useRecoilState } from 'recoil';
+import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
 import { AuthPage } from './routes/auth_page/AuthPage';
 import { Root } from './Root';
 import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 import { isAuthenticated } from './routes/auth_page/store/isAuthenticated';
 import { useSessionContext } from './Router/SessionContext';
-import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
 import { Dashboard } from './routes/dashboard/Dashboard';
 import { CreateInvoice } from './routes/create_invoice/CreateInvoice';
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
@@ -75,7 +63,7 @@ const Homepage = () => (
 
 const getToken = () => sessionStorage.getItem('token');
 
-function App() {
+const App: React.VFC = () => {
   const [sessionContext, updateSessionContext] = useSessionContext();
 
   const setRedirectPath = (path: string) => {
@@ -102,18 +90,10 @@ function App() {
     <div>
       <ApolloProvider client={client}>
         <Switch>
-          <Route exact path="/" component={Homepage} />
+          <Route exact component={Homepage} path="/" />
 
-          <ProtectedRoute
-            {...defaultProtectedRouteProps}
-            path="/dashboard"
-            component={Dashboard}
-          />
-          <ProtectedRoute
-            {...defaultProtectedRouteProps}
-            path="/invoices"
-            component={CreateInvoice}
-          />
+          <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/dashboard" />
+          <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" />
 
           {/* <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
 
@@ -121,11 +101,32 @@ function App() {
             <Redirect to="/dashboard" />
           )} */}
 
-          <Route path="/login" component={AuthPage} />
+          <Route component={AuthPage} path="/login" />
         </Switch>
       </ApolloProvider>
     </div>
   );
-}
+};
 
 export default App;
+
+
+// "devDependencies": {
+//   "@babel/eslint-parser": "^7.15.4",
+//   "@babel/preset-react": "^7.14.5",
+//   "@typescript-eslint/eslint-plugin": "^4.31.0",
+//   "@typescript-eslint/parser": "^4.31.0",
+//   "eslint": "^7.32.0",
+//   "eslint-config-airbnb": "^18.2.1",
+//   "eslint-config-airbnb-typescript": "^14.0.0",
+//   "eslint-config-george-lint": "1.0.2",
+//   "eslint-config-prettier": "^8.3.0",
+//   "eslint-plugin-html": "^6.1.2",
+//   "eslint-plugin-import": "^2.24.2",
+//   "eslint-plugin-jest": "^24.4.0",
+//   "eslint-plugin-jsx-a11y": "^6.4.1",
+//   "eslint-plugin-prettier": "^4.0.0",
+//   "eslint-plugin-react": "^7.25.1",
+//   "eslint-plugin-react-hooks": "^4.2.0",
+//   "prettier": "^2.3.2"
+// }

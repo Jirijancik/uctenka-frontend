@@ -12,7 +12,7 @@ interface Client {
   _id?: number;
 }
 
-export const CreateInvoice = () => {
+export const CreateInvoice: React.VFC = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [invoices, setInvoices] = useState<any>();
 
@@ -38,15 +38,15 @@ export const CreateInvoice = () => {
   return (
     <>
       <Form
-        onFinish={handleOnFinish}
         labelCol={{
           span: 4,
         }}
+        layout="horizontal"
+        style={{ marginTop: 50 }}
         wrapperCol={{
           span: 14,
         }}
-        layout="horizontal"
-        style={{ marginTop: 50 }}
+        onFinish={handleOnFinish}
       >
         {/* <Form.Item label="Dodavatel" name="supplier">
           <Select placeholder="vzber dodavatele">
@@ -115,13 +115,15 @@ export const CreateInvoice = () => {
         </Form.Item>
 
         <Form.Item name="Button">
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" type="primary">
             Odeslat
           </Button>
         </Form.Item>
       </Form>
 
-      <button onClick={() => localStorage.removeItem('token')}>LOGOUT</button>
+      <button type="button" onClick={() => localStorage.removeItem('token')}>
+        LOGOUT
+      </button>
     </>
   );
 };

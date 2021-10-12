@@ -8,7 +8,7 @@ export function AuthPage() {
 
   return (
     <div>
-      <Button onClick={() => setShowingLogin(!showingLogin)} title="Register">
+      <Button title="Register" onClick={() => setShowingLogin(!showingLogin)}>
         SWAP FORMS
       </Button>
       {showingLogin ? <LoginForm /> : <RegisterForm />}
