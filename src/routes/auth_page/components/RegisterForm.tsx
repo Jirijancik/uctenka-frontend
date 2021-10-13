@@ -1,12 +1,20 @@
-import React from 'react';
-import { Button, Form, Input } from 'antd';
 import { useMutation } from '@apollo/client';
+import { Button, Form, Input } from 'antd';
+import React from 'react';
 import { REGISTER_USER } from '../../../graphql/mutations/User';
+
+interface RegisterUserInput {
+  userName: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
 
 export function RegisterForm() {
   const [registerUser] = useMutation(REGISTER_USER);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: RegisterUserInput) => {
     const newUser = values;
     registerUser({
       variables: {

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Select, DatePicker, InputNumber } from 'antd';
+import { useQuery } from '@apollo/client';
+import { Button, DatePicker, Form, InputNumber, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
-import { useQuery } from '@apollo/client';
-import { GET_CLIENTS } from '../../graphql/queries/Client';
+import React, { useState } from 'react';
+import { ClientsData, GET_CLIENTS } from '../../graphql/queries/Client';
 
 interface Client {
   name: string;
@@ -14,9 +14,9 @@ interface Client {
 
 export const CreateInvoice: React.VFC = () => {
   const [clients, setClients] = useState<Client[]>([]);
-  const [invoices, setInvoices] = useState<any>();
+  const [invoices, setInvoices] = useState<{ item: any }>();
 
-  const { data, error, loading } = useQuery(GET_CLIENTS);
+  const { data, error, loading } = useQuery<ClientsData>(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
     axios
@@ -24,9 +24,9 @@ export const CreateInvoice: React.VFC = () => {
       .then(response => {
         setInvoices(response.data);
       })
-      .catch(error => {
+      .catch(err => {
         // handle error
-        console.log(error);
+        console.log(err);
       })
       .then(() => {
         // always executed

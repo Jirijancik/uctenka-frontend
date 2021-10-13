@@ -1,6 +1,6 @@
-import React from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { Button, Checkbox, Form, Input } from 'antd';
+import React from 'react';
 import { useHistory } from 'react-router';
 import { LOGIN_USER } from '../../../graphql/queries/User';
 import { useSessionContext } from '../../../Router/SessionContext';
@@ -12,6 +12,12 @@ interface LoginUserResponse {
       username: string;
     };
   };
+}
+
+interface LoginUserInput {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export function LoginForm() {
@@ -30,7 +36,7 @@ export function LoginForm() {
     onCompleted: onLoginIn,
   });
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: LoginUserInput) => {
     fetchLoginUser({
       variables: {
         ...values,

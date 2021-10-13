@@ -10,3 +10,12 @@ export const GET_CLIENTS = gql`
     }
   }
 `;
+
+export interface ClientsData {
+  getAllClients: {
+    name: string;
+    adress: string;
+    ico: string;
+    _id: string;
+  };
+}

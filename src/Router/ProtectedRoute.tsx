@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Redirect, Route, RouteProps, useLocation } from "react-router";
+import { useEffect } from 'react';
+import { Redirect, Route, RouteProps, useLocation } from 'react-router';
 
 export type ProtectedRouteProps = {
   isAuthenticated: boolean;
@@ -23,11 +23,11 @@ export default function ProtectedRoute({
     authenticationPath,
     redirectPath,
   });
-  console.log("went OUT", path, currentLocation.pathname);
+  console.log('went OUT', path, currentLocation.pathname);
   useEffect(() => {
-    console.log("went inXXXX", currentLocation.pathname);
+    console.log('went inXXXX', currentLocation.pathname);
     if (isAuthenticated && path) {
-      console.log("went in", currentLocation.pathname, path);
+      console.log('went in', currentLocation.pathname, path);
       const x: any = path;
       setRedirectPath(x);
     }
@@ -38,24 +38,14 @@ export default function ProtectedRoute({
     redirectPath === currentLocation.pathname,
     redirectPath,
     currentLocation.pathname,
-    routeProps
+    routeProps,
   );
 
   if (isAuthenticated && redirectPath === currentLocation.pathname) {
-    console.log("WENT FUCKING HJERE", routeProps, path);
+    console.log('WENT FUCKING HJERE', routeProps, path);
 
     return <Route {...routeProps} />;
-  } else {
-    console.log("WHAAAT FUCKING HJERE");
-    return (
-      <Redirect
-        to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }}
-      />
-    );
   }
-  return (
-    <Redirect
-      to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }}
-    />
-  );
+  console.log('WHAAAT FUCKING HJERE');
+  return <Redirect to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
 }
