@@ -1,21 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, HttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import Cookies from 'js-cookie';
-import { RecoilRoot, useRecoilState } from 'recoil';
-import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
-import { AuthPage } from './routes/auth_page/AuthPage';
-import { Root } from './Root';
-import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
-import { isAuthenticated } from './routes/auth_page/store/isAuthenticated';
-import { useSessionContext } from './Router/SessionContext';
-import { Dashboard } from './routes/dashboard/Dashboard';
-import { CreateInvoice } from './routes/create_invoice/CreateInvoice';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  Link,
+} from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+  HttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import Cookies from "js-cookie";
+import { RecoilRoot, useRecoilState } from "recoil";
+import ProtectedRoute, { ProtectedRouteProps } from "./Router/ProtectedRoute";
+import { AuthPage } from "./routes/auth_page/AuthPage";
+import { Root } from "./Root";
+import { PageNotFound } from "./Pages/PageNotFound/PageNotFound";
+import { isAuthenticated } from "./routes/auth_page/store/isAuthenticated";
+import { useSessionContext } from "./Router/SessionContext";
+import { Dashboard } from "./routes/dashboard/Dashboard";
+import { CreateInvoice } from "./routes/create_invoice/CreateInvoice";
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: "http://localhost:4000/graphql",
   //  credentials: "include",
   // headers: {
   //   authorization: `Bearer ${token}`,
@@ -57,11 +69,11 @@ const client = new ApolloClient({
 
 const Homepage = () => (
   <div>
-    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{' '}
+    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{" "}
   </div>
 );
 
-const getToken = () => sessionStorage.getItem('token');
+const getToken = () => sessionStorage.getItem("token");
 
 const App: React.VFC = () => {
   const [sessionContext, updateSessionContext] = useSessionContext();
@@ -72,7 +84,7 @@ const App: React.VFC = () => {
 
   const defaultProtectedRouteProps: ProtectedRouteProps = {
     isAuthenticated: !!sessionContext.isAuthenticated,
-    authenticationPath: '/login',
+    authenticationPath: "/login",
     redirectPath: sessionContext.redirectPath,
     setRedirectPath,
   };
@@ -84,7 +96,7 @@ const App: React.VFC = () => {
     });
   }, []);
 
-  console.log(sessionContext, 'sessionContext');
+  console.log(sessionContext, "sessionContext");
 
   return (
     <div>
@@ -92,8 +104,16 @@ const App: React.VFC = () => {
         <Switch>
           <Route exact component={Homepage} path="/" />
 
-          <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/dashboard" />
-          <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" />
+          <ProtectedRoute
+            {...defaultProtectedRouteProps}
+            component={Dashboard}
+            path="/dashboard"
+          />
+          <ProtectedRoute
+            {...defaultProtectedRouteProps}
+            component={CreateInvoice}
+            path="/invoices"
+          />
 
           {/* <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
 
