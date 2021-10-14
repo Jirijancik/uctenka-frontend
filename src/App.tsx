@@ -1,11 +1,10 @@
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
+import { Root } from './Root';
+import { ProtectedRouteProps } from './Router/ProtectedRoute';
 import { useSessionContext } from './Router/SessionContext';
 import { AuthPage } from './routes/auth_page/AuthPage';
-import { CreateInvoice } from './routes/create_invoice/CreateInvoice';
-import { Dashboard } from './routes/dashboard/Dashboard';
 // const token = localStorage.getItem("token") ?? "RANDOMSHAJT";
 
 const httpLink = new HttpLink({
@@ -84,18 +83,11 @@ const App: React.VFC = () => {
     <div>
       <ApolloProvider client={client}>
         <Switch>
-          <Route exact component={Homepage} path="/" />
+          <Route exact component={AuthPage} path="/login" />
+          {/* <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/" />
+          <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" /> */}
 
-          <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/dashboard" />
-          <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" />
-
-          {/* <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
-
-          {Boolean(sessionContext.isAuthenticated) && (
-            <Redirect to="/dashboard" />
-          )} */}
-
-          <Route component={AuthPage} path="/login" />
+          <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
         </Switch>
       </ApolloProvider>
     </div>

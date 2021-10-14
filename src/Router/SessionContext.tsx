@@ -8,7 +8,7 @@ export type Session = {
 const getToken = () => sessionStorage.getItem('token');
 
 export const initialSession: Session = {
-  redirectPath: '/dashboard',
+  redirectPath: '/login',
   isAuthenticated: Boolean(getToken()),
 };
 

@@ -29,7 +29,7 @@ export function LoginForm() {
     sessionStorage.setItem('token', loginUser.token);
     sessionStorage.setItem('user', loginUser.user.username);
     setSession({ ...session, isAuthenticated: true });
-    history.push(session.redirectPath);
+    history.push('/dashboard');
   };
 
   const [fetchLoginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {

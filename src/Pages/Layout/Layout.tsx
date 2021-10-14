@@ -1,14 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import { Layout as AntLayout, Menu } from 'antd';
 import { ContainerOutlined, ProjectOutlined } from '@ant-design/icons';
+import { Layout as AntLayout, Menu } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './Layout.css';
 
 const { Header, Content, Footer, Sider } = AntLayout;
 const { SubMenu } = Menu;
 
-export function Layout(props: any) {
+export const Layout: React.FC = props => {
   const { children } = props;
   return (
     <AntLayout>
@@ -43,4 +42,4 @@ export function Layout(props: any) {
       </AntLayout>
     </AntLayout>
   );
-}
+};
