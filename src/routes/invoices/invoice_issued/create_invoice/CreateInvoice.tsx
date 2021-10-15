@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client';
 import { Button, Card, Form, Input, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
-import { Date } from '../../components/form/Date/Date';
-import { InputNumber } from '../../components/form/Input/InputNumber';
-import { ClientsData, GET_CLIENTS } from '../../graphql/queries/Client';
+import { Date } from '../../../../components/form/Date/Date';
+import { InputNumber } from '../../../../components/form/Input/InputNumber';
+import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Client';
 
 interface Client {
   name: string;
@@ -13,7 +13,7 @@ interface Client {
   _id: number;
 }
 
-export const CreateInvoice: React.VFC = () => {
+export const CreateInvoiceIssued: React.VFC = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [invoices, setInvoices] = useState<{ item: any }>();
 
@@ -38,7 +38,8 @@ export const CreateInvoice: React.VFC = () => {
 
   return (
     <>
-      <Card style={{ width: '35%' }}>
+      THIS IS INVOICE ISSUED
+      <Card style={{ width: '100%' }}>
         <Form
           labelCol={{
             span: 5,
@@ -130,7 +131,6 @@ export const CreateInvoice: React.VFC = () => {
           </Button>
         </Form>
       </Card>
-
       <button type="button" onClick={() => localStorage.removeItem('token')}>
         LOGOUT
       </button>

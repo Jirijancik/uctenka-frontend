@@ -13,7 +13,7 @@ export const initialSession: Session = {
 };
 
 export const SessionContext = createContext<[Session, (session: Session) => void]>([initialSession, () => {}]);
-export const useSessionContext = () => useContext(SessionContext);
+export const useSessionContext = (): any => useContext(SessionContext);
 
 // eslint-disable-next-line react/prop-types
 export const SessionContextProvider: React.FC<{ children: Element | React.ReactNode }> = ({ children }) => {

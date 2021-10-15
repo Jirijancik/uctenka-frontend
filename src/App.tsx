@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import React, { useEffect } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Root } from './Root';
 import { ProtectedRouteProps } from './Router/ProtectedRoute';
 import { useSessionContext } from './Router/SessionContext';
@@ -48,12 +51,6 @@ const client = new ApolloClient({
 //   cache: new InMemoryCache(),
 // });
 
-const Homepage = () => (
-  <div>
-    HOMEPAGE <Link to="/login">LOGIN HERE</Link>{' '}
-  </div>
-);
-
 const getToken = () => sessionStorage.getItem('token');
 
 const App: React.VFC = () => {
@@ -72,20 +69,17 @@ const App: React.VFC = () => {
 
   useEffect(() => {
     updateSessionContext({
+      ...defaultProtectedRouteProps,
       ...sessionContext,
       isAuthenticated: Boolean(getToken()),
     });
   }, []);
-
-  console.log(sessionContext, 'sessionContext');
-
+  console.log(sessionContext, 'in APP');
   return (
     <div>
       <ApolloProvider client={client}>
         <Switch>
           <Route exact component={AuthPage} path="/login" />
-          {/* <ProtectedRoute {...defaultProtectedRouteProps} component={Dashboard} path="/" />
-          <ProtectedRoute {...defaultProtectedRouteProps} component={CreateInvoice} path="/invoices" /> */}
 
           <Root defaultProtectedRouteProps={defaultProtectedRouteProps} />
         </Switch>

@@ -26,10 +26,8 @@ export default function ProtectedRoute({
   }, [isAuthenticated, path]);
 
   if (isAuthenticated && redirectPath !== currentLocation.pathname) {
-    console.log('WENT FUCKING HJERE', routeProps, path);
-
     return <Route {...routeProps} />;
   }
-  console.log('WHAAAT FUCKING HJERE');
+
   return <Redirect to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
 }

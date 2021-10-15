@@ -25,8 +25,11 @@ export const Layout: React.FC = props => {
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>
           <SubMenu key="2" icon={<ContainerOutlined />} title="Faktury">
-            <Link to="invoices">
-              <Menu.Item key="3">Faktury Prijate</Menu.Item>
+            <Link to="invoice-recieved">
+              <Menu.Item key="21">Faktury Prijate</Menu.Item>
+            </Link>
+            <Link to="invoice-issued">
+              <Menu.Item key="22">Faktury Vydane</Menu.Item>
             </Link>
           </SubMenu>
         </Menu>
