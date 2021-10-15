@@ -9,7 +9,7 @@ interface Client {
   name: string;
   adress: string;
   ico: string;
-  _id?: number;
+  _id: number;
 }
 
 export const CreateInvoice: React.VFC = () => {
@@ -32,7 +32,7 @@ export const CreateInvoice: React.VFC = () => {
         // always executed
       });
 
-    console.log(item);
+    console.log(data?.getClients);
   };
 
   return (
@@ -48,17 +48,16 @@ export const CreateInvoice: React.VFC = () => {
         }}
         onFinish={handleOnFinish}
       >
-        {/* <Form.Item label="Dodavatel" name="supplier">
+        <Form.Item label="Dodavatel" name="supplier">
           <Select placeholder="vzber dodavatele">
             {!loading &&
-              data.getAllClients.length &&
-              data.getAllClients.map((client: Client) => (
+              data?.getClients?.map((client: Client) => (
                 <Select.Option key={client._id} value={client.ico}>
                   {client.name}: {client.adress}
                 </Select.Option>
               ))}
           </Select>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item label="Datum prijeti" name="acceptanceDate">
           <DatePicker />

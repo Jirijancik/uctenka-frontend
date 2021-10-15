@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_CLIENTS = gql`
   query getClients {
-    getAllClients {
+    getClients {
       name
       adress
       ico
@@ -12,10 +12,10 @@ export const GET_CLIENTS = gql`
 `;
 
 export interface ClientsData {
-  getAllClients: {
+  getClients: {
     name: string;
     adress: string;
     ico: string;
-    _id: string;
-  };
+    _id: number;
+  }[];
 }
