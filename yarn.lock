@@ -4860,10 +4860,10 @@ eslint-config-airbnb@^18.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-george-lint@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-george-lint/-/eslint-config-george-lint-1.0.4.tgz#a868c449d9fff6712d98d718089c0fb2517a212b"
-  integrity sha512-3pr8gTk6ZR6zLp0q10dI+DoKKtD9KG6TbYuqX47WGQyj1mpujwvgCviHEG5u1y7HCl5bea7pz0f6qflfk6lf4A==
+eslint-config-george-lint@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-george-lint/-/eslint-config-george-lint-1.0.5.tgz#56aaf707fd01442d76e7408ab06f461b7be1eed3"
+  integrity sha512-AsH38XIRFG4ESNOkCM6OmO0QpjAEKTT3SdAj6TzeystCTeKgFmtHLG2TuW3DwG1FYyxwmCE7togII94RsPFp3A==
   dependencies:
     "@babel/core" "^7.15.8"
     "@babel/eslint-parser" "^7.15.4"
@@ -4882,7 +4882,6 @@ eslint-config-george-lint@1.0.4:
     eslint-plugin-react "^7.25.1"
     eslint-plugin-react-hooks "^4.2.0"
     prettier "^2.3.2"
-    typescript "^4.4.2"
 
 eslint-config-prettier@^8.3.0:
   version "8.3.0"

@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 
-export function AuthPage() {
+export const AuthPage: React.VFC = () => {
   const [showingLogin, setShowingLogin] = useState(true);
 
   return (
@@ -14,4 +14,4 @@ export function AuthPage() {
       {showingLogin ? <LoginForm /> : <RegisterForm />}
     </div>
   );
-}
+};

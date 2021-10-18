@@ -9,7 +9,6 @@ interface RootProps {
   defaultProtectedRouteProps: ProtectedRouteProps;
 }
 
-// eslint-disable-next-line react/prop-types
 export const Root: React.VFC<RootProps> = ({ defaultProtectedRouteProps }) => (
   <Layout>
     <Switch>
