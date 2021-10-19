@@ -21,8 +21,8 @@ export const RegisterForm: React.VFC = () => {
         newUser,
       },
     })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+      .then(response => console.warn(response))
+      .catch(error => console.error(error));
   };
 
   return (

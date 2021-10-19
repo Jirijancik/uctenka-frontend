@@ -20,20 +20,7 @@ export const CreateInvoiceIssued: React.VFC = () => {
   const { data, error, loading } = useQuery<ClientsData>(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
-    console.log(item);
-
-    // axios
-    //   .get('/api/invoices')
-    //   .then(response => {
-    //     setInvoices(response.data);
-    //   })
-    //   .catch(err => {
-    //     // handle error
-    //     console.log(err);
-    //   })
-    //   .then(() => {
-    //     // always executed
-    //   });
+    console.warn(item);
   };
 
   return (

@@ -13,13 +13,11 @@ export const initialSession: Session = {
 };
 
 export const SessionContext = createContext<[Session, (session: Session) => void]>([initialSession, () => {}]);
-export const useSessionContext = (): any => useContext(SessionContext);
+export const useSessionContext = (): [Session, (session: Session) => void] => useContext(SessionContext);
 
-// eslint-disable-next-line react/prop-types
 export const SessionContextProvider: React.FC<{ children: Element | React.ReactNode }> = ({ children }) => {
   const [sessionState, setSessionState] = useState(initialSession);
   const defaultSessionContext: [Session, typeof setSessionState] = [sessionState, setSessionState];
 
-  // eslint-disable-next-line max-len
   return <SessionContext.Provider value={defaultSessionContext}>{children}</SessionContext.Provider>;
 };

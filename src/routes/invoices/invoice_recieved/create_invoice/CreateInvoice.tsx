@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Button, Card, Form, Input, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { useState } from 'react';
+import React from 'react';
 import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
 import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Client';
@@ -14,13 +14,10 @@ interface Client {
 }
 
 export const CreateInvoiceRecieved: React.VFC = () => {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [invoices, setInvoices] = useState<{ item: any }>();
-
-  const { data, error, loading } = useQuery<ClientsData>(GET_CLIENTS);
+  const { data, error, loading: loadingClients } = useQuery<ClientsData>(GET_CLIENTS);
 
   const handleOnFinish = (item: any) => {
-    console.log(item);
+    console.warn(item);
 
     // axios
     //   .get('/api/invoices')
@@ -36,6 +33,16 @@ export const CreateInvoiceRecieved: React.VFC = () => {
     //   });
   };
 
+  if (error) {
+    return (
+      <>
+        <h1>{error.message}</h1>
+        <div>{error.extraInfo}</div>
+        <div>{error.stack}</div>
+      </>
+    );
+  }
+
   return (
     <>
       THIS IS INVOICE RECIEVED
@@ -49,8 +56,8 @@ export const CreateInvoiceRecieved: React.VFC = () => {
           onFinish={handleOnFinish}
         >
           <Form.Item label="Supplier" name="supplier">
-            <Select placeholder="vyber dodavatele">
-              {!loading &&
+            <Select loading={loadingClients} placeholder="vyber dodavatele">
+              {!loadingClients &&
                 data?.getClients?.map((client: Client) => (
                   <Select.Option key={client._id} value={client.ico}>
                     {client.name}: {client.adress}

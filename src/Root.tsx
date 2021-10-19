@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import { Layout } from './Pages/Layout/Layout';
-import ProtectedRoute, { ProtectedRouteProps } from './Router/ProtectedRoute';
+import { ProtectedRoute, ProtectedRouteProps } from './Router/ProtectedRoute';
 import { Dashboard } from './routes/dashboard/Dashboard';
 import { InvoicesRouter } from './routes/invoices/Router';
 

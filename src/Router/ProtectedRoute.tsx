@@ -8,26 +8,25 @@ export type ProtectedRouteProps = {
   setRedirectPath: (path: string) => void;
 } & RouteProps;
 
-export default function ProtectedRoute({
+export const ProtectedRoute: React.VFC<ProtectedRouteProps> = ({
   isAuthenticated,
   authenticationPath,
   redirectPath,
   setRedirectPath,
   path,
   ...routeProps
-}: ProtectedRouteProps) {
+}) => {
   const currentLocation = useLocation();
 
   useEffect(() => {
-    if (isAuthenticated && path !== currentLocation.pathname) {
-      const x: any = path;
-      setRedirectPath(x);
+    if (isAuthenticated && path !== currentLocation.pathname && path) {
+      setRedirectPath(path.toString());
     }
-  }, [isAuthenticated, path]);
+  }, [currentLocation.pathname, isAuthenticated, path, setRedirectPath]);
 
   if (isAuthenticated && redirectPath !== currentLocation.pathname) {
     return <Route {...routeProps} />;
   }
 
   return <Redirect to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
-}
+};
