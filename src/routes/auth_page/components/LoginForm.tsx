@@ -32,7 +32,7 @@ export const LoginForm: React.VFC = () => {
     history.push('/dashboard');
   };
 
-  const [fetchLoginUser, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
+  const [fetchLoginUser, { error }] = useLazyQuery(LOGIN_USER, {
     onCompleted: onLoginIn,
   });
 
@@ -72,7 +72,13 @@ export const LoginForm: React.VFC = () => {
         </Button>
       </Form.Item>
 
-      {error && error.message}
+      {error && (
+        <>
+          <h1>{error.message}</h1>
+          <div>{error.extraInfo}</div>
+          <div>{error.stack}</div>
+        </>
+      )}
     </Form>
   );
 };

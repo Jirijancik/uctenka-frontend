@@ -23,6 +23,16 @@ export const CreateInvoiceIssued: React.VFC = () => {
     console.warn(item);
   };
 
+  if (error) {
+    return (
+      <>
+        <h1>{error.message}</h1>
+        <div>{error.extraInfo}</div>
+        <div>{error.stack}</div>
+      </>
+    );
+  }
+
   return (
     <>
       THIS IS INVOICE ISSUED

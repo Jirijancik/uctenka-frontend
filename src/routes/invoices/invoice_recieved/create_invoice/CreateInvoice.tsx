@@ -18,19 +18,6 @@ export const CreateInvoiceRecieved: React.VFC = () => {
 
   const handleOnFinish = (item: any) => {
     console.warn(item);
-
-    // axios
-    //   .get('/api/invoices')
-    //   .then(response => {
-    //     setInvoices(response.data);
-    //   })
-    //   .catch(err => {
-    //     // handle error
-    //     console.log(err);
-    //   })
-    //   .then(() => {
-    //     // always executed
-    //   });
   };
 
   if (error) {
