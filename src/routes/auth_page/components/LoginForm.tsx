@@ -9,7 +9,7 @@ interface LoginUserResponse {
   loginUser: {
     token: string;
     user: {
-      username: string;
+      email: string;
     };
   };
 }
@@ -27,7 +27,7 @@ export const LoginForm: React.VFC = () => {
 
   const onLoginIn = ({ loginUser }: LoginUserResponse) => {
     sessionStorage.setItem('token', loginUser.token);
-    sessionStorage.setItem('user', loginUser.user.username);
+    sessionStorage.setItem('email', loginUser.user.email);
     setSession({ ...session, isAuthenticated: true });
     history.push('/dashboard');
   };
@@ -54,8 +54,8 @@ export const LoginForm: React.VFC = () => {
       wrapperCol={{ span: 16 }}
       onFinish={onFinish}
     >
-      <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
-        <Input />
+      <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+        <Input type="email" />
       </Form.Item>
 
       <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
