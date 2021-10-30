@@ -1,11 +1,11 @@
 import { Button, Card, Col, PageHeader, Row } from 'antd';
 import React from 'react';
 
-export const Dashboard: React.VFC = () => (
+export const ClientsPage: React.VFC = () => (
   <div>
     <Card>
-      <PageHeader title="Hi welcome here" />
-      <p>I am uctenka app. So far I can only add a new Invoice. Please give it a try!</p>
+      <PageHeader title="Clients" />
+      <p>eyo</p>
     </Card>
     <Row>
       <Col span={5}>

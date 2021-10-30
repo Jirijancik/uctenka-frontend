@@ -4,7 +4,6 @@ import React from 'react';
 import { REGISTER_USER } from '../../../graphql/mutations/User';
 
 interface RegisterUserInput {
-  userName: string;
   email: string;
   password: string;
   firstName: string;
@@ -35,10 +34,6 @@ export const RegisterForm: React.VFC = () => {
       wrapperCol={{ span: 16 }}
       onFinish={onFinish}
     >
-      <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
-        <Input />
-      </Form.Item>
-
       <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
         <Input />
       </Form.Item>

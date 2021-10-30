@@ -5,7 +5,7 @@ export const REGISTER_USER = gql`
     registerUser(newUser: $newUser) {
       token
       user {
-        username
+        email
       }
     }
   }

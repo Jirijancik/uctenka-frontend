@@ -24,12 +24,15 @@ export const Layout: React.FC = props => {
           <Menu.Item key="1" icon={<ProjectOutlined />}>
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>
-          <SubMenu key="2" icon={<ContainerOutlined />} title="Faktury">
+          <Menu.Item key="2" icon={<ProjectOutlined />}>
+            <Link to="clients">Clients</Link>
+          </Menu.Item>
+          <SubMenu key="3" icon={<ContainerOutlined />} title="Faktury">
             <Link to="invoice-recieved">
-              <Menu.Item key="21">Faktury Prijate</Menu.Item>
+              <Menu.Item key="31">Faktury Prijate</Menu.Item>
             </Link>
             <Link to="invoice-issued">
-              <Menu.Item key="22">Faktury Vydane</Menu.Item>
+              <Menu.Item key="32">Faktury Vydane</Menu.Item>
             </Link>
           </SubMenu>
         </Menu>
