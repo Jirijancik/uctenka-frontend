@@ -6,18 +6,12 @@ import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
 import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Client';
 
-interface Client {
-  name: string;
-  adress: string;
-  ico: string;
-  _id: number;
-}
-
 export const CreateInvoiceIssued: React.VFC = () => {
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<ClientsData[]>([]);
   const [invoices, setInvoices] = useState<{ item: any }>();
 
   const { data, error, loading } = useQuery<ClientsData>(GET_CLIENTS);
+  console.log(data, 'data');
 
   const handleOnFinish = (item: any) => {
     console.warn(item);
@@ -48,9 +42,9 @@ export const CreateInvoiceIssued: React.VFC = () => {
           <Form.Item label="Supplier" name="supplier">
             <Select placeholder="vyber dodavatele">
               {!loading &&
-                data?.getClients?.map((client: Client) => (
-                  <Select.Option key={client._id} value={client.ico}>
-                    {client.name}: {client.adress}
+                data?.getClients?.map((client: ClientsData['getClients'][number]) => (
+                  <Select.Option key={client._id} value={client._id}>
+                    {client.name}: {client.city} {client.street}, {client.country}
                   </Select.Option>
                 ))}
             </Select>

@@ -6,13 +6,6 @@ import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
 import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Client';
 
-interface Client {
-  name: string;
-  adress: string;
-  ico: string;
-  _id: number;
-}
-
 export const CreateInvoiceRecieved: React.VFC = () => {
   const { data, error, loading: loadingClients } = useQuery<ClientsData>(GET_CLIENTS);
 
@@ -45,9 +38,9 @@ export const CreateInvoiceRecieved: React.VFC = () => {
           <Form.Item label="Supplier" name="supplier">
             <Select loading={loadingClients} placeholder="vyber dodavatele">
               {!loadingClients &&
-                data?.getClients?.map((client: Client) => (
-                  <Select.Option key={client._id} value={client.ico}>
-                    {client.name}: {client.adress}
+                data?.getClients?.map((client: ClientsData['getClients'][number]) => (
+                  <Select.Option key={client._id} value={client._id}>
+                    {client.name}: {client.city} {client.street}, {client.country}
                   </Select.Option>
                 ))}
             </Select>

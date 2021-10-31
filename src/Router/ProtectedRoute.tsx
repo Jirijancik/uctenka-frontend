@@ -1,32 +1,23 @@
-import { useEffect } from 'react';
 import { Redirect, Route, RouteProps, useLocation } from 'react-router';
+import { useSessionContext } from './SessionContext';
 
-export type ProtectedRouteProps = {
-  isAuthenticated: boolean;
-  authenticationPath: string;
-  redirectPath: string;
-  setRedirectPath: (path: string) => void;
-} & RouteProps;
+export type ProtectedRouteProps = RouteProps;
 
-export const ProtectedRoute: React.VFC<ProtectedRouteProps> = ({
-  isAuthenticated,
-  authenticationPath,
-  redirectPath,
-  setRedirectPath,
-  path,
-  ...routeProps
-}) => {
+export const ProtectedRoute: React.VFC<ProtectedRouteProps> = ({ path, ...routeProps }) => {
   const currentLocation = useLocation();
+  const [sessionContext, updateSessionContext] = useSessionContext();
 
-  useEffect(() => {
-    if (isAuthenticated && path !== currentLocation.pathname && path) {
-      setRedirectPath(path.toString());
-    }
-  }, [currentLocation.pathname, isAuthenticated, path, setRedirectPath]);
+  const { redirectPath, isAuthenticated } = sessionContext;
 
-  if (isAuthenticated && redirectPath !== currentLocation.pathname) {
+  // useEffect(() => {
+  //   if (isAuthenticated && path !== currentLocation.pathname && path) {
+  //     setRedirectPath(path.toString());
+  //   }
+  // }, [isAuthenticated]);
+
+  if (isAuthenticated) {
     return <Route {...routeProps} />;
   }
 
-  return <Redirect to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
+  return <Redirect to={{ pathname: redirectPath }} />;
 };
