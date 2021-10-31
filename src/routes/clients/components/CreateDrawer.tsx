@@ -1,31 +1,23 @@
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
-import React, { useState } from 'react';
+import { Button, Col, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import React from 'react';
+import { BusinessType } from '../../../types/businessType';
+import { PaymentMethod } from '../../../types/paymentMethod';
+import { PaymentTerms } from '../../../types/paymentTerms';
 
 const { Option } = Select;
 
-export const ClientsPage: React.VFC = () => {
-  const [isVisibale, setIsVisibale] = useState(false);
-
-  const showDrawer = () => {
-    setIsVisibale(true);
-  };
-
+export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (state: boolean) => void }> = ({
+  isVisible,
+  setIsVisible,
+}) => {
   const onClose = () => {
-    setIsVisibale(false);
+    setIsVisible(false);
   };
   return (
     <Drawer
       bodyStyle={{ paddingBottom: 80 }}
-      extra={
-        <Space>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button type="primary" onClick={onClose}>
-            Submit
-          </Button>
-        </Space>
-      }
-      title="Create a new account"
-      visible={isVisibale}
+      title="Create a new client"
+      visible={isVisible}
       width={720}
       onClose={onClose}
     >
@@ -33,72 +25,149 @@ export const ClientsPage: React.VFC = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter user name' }]}>
-              <Input placeholder="Please enter user name" />
+              <Input placeholder="Please enter client name" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Url" name="url" rules={[{ required: true, message: 'Please enter url' }]}>
-              <Input addonAfter=".com" addonBefore="http://" placeholder="Please enter url" style={{ width: '100%' }} />
+            <Form.Item
+              label="Unified VAT number"
+              name="unifiedVatNumber"
+              rules={[{ required: true, message: 'Please enter Unified VAT number' }]}
+            >
+              <Input />
             </Form.Item>
           </Col>
         </Row>
+
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item label="Owner" name="owner" rules={[{ required: true, message: 'Please select an owner' }]}>
+            <Form.Item
+              label="VAT number"
+              name="vatNumber"
+              rules={[{ required: true, message: 'Please enter VAT number' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Currency" name="currency" rules={[{ required: true, message: 'Please enter currency' }]}>
               <Select placeholder="Please select an owner">
-                <Option value="xiao">Xiaoxiao Fu</Option>
-                <Option value="mao">Maomao Zhou</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="Type" name="type" rules={[{ required: true, message: 'Please choose the type' }]}>
-              <Select placeholder="Please choose the type">
-                <Option value="private">Private</Option>
-                <Option value="public">Public</Option>
+                <Option value="CZK">CZK</Option>
+                <Option value="EUR">EUR</Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item label="Account balance" name="accountBalance">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Payment terms" name="paymentTerms">
+              <Select placeholder="Please choose the payment type">
+                <Option value={PaymentTerms.AfterTwoWeeks}>{PaymentTerms.AfterTwoWeeks}</Option>
+                <Option value="public">Other</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item label="Contact person" name="contactPerson">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please choose the email' }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Approver"
-              name="approver"
-              rules={[{ required: true, message: 'Please choose the approver' }]}
+              label="Country"
+              name="country"
+              rules={[{ required: true, message: 'Please choose the country' }]}
             >
-              <Select placeholder="Please choose the approver">
-                <Option value="jack">Jack Ma</Option>
-                <Option value="tom">Tom Liu</Option>
-              </Select>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Street" name="street" rules={[{ required: true, message: 'Please choose the street' }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item label="City" name="city" rules={[{ required: true, message: 'Please choose the city' }]}>
+              <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="DateTime"
-              name="dateTime"
-              rules={[{ required: true, message: 'Please choose the dateTime' }]}
+              label="Postcode"
+              name="postcode"
+              rules={[{ required: true, message: 'Please choose the postcode' }]}
             >
-              <DatePicker.RangePicker getPopupContainer={trigger => trigger.parentElement} style={{ width: '100%' }} />
+              <Input />
             </Form.Item>
           </Col>
         </Row>
+
         <Row gutter={16}>
-          <Col span={24}>
+          <Col span={12}>
             <Form.Item
-              label="Description"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: 'please enter url description',
-                },
-              ]}
+              label="Mobile phone"
+              name="mobilePhone"
+              rules={[{ required: true, message: 'Please choose the mobilePhone' }]}
             >
-              <Input.TextArea placeholder="please enter url description" rows={4} />
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Type of bussiness"
+              name="typeOfBussiness"
+              rules={[{ required: true, message: 'Please choose the Type of bussiness' }]}
+            >
+              <Select placeholder="Please choose the Type of bussiness">
+                <Option value={BusinessType.Company}>{BusinessType.Company}</Option>
+                <Option value={BusinessType.PrivatePerson}>{BusinessType.PrivatePerson}</Option>
+              </Select>
             </Form.Item>
           </Col>
         </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item label="Account number" name="accountNumber">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Payment method" name="paymentMethod">
+              <Select placeholder="Please choose the Type of bussiness">
+                <Option value={PaymentMethod.Account}>{PaymentMethod.Account}</Option>
+                <Option value={PaymentMethod.Account}>{PaymentMethod.Account}</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Space>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="primary" onClick={onClose}>
+            Submit
+          </Button>
+        </Space>
       </Form>
     </Drawer>
   );
