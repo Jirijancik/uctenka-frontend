@@ -1,5 +1,7 @@
-import { Button, Col, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import { useMutation } from '@apollo/client';
+import { Button, Col, Drawer, Form, Input, InputNumber, Row, Select, Space } from 'antd';
 import React from 'react';
+import { ClientInput, CREATE_CLIENT } from '../../../graphql/mutations/Client';
 import { BusinessType } from '../../../types/businessType';
 import { Currency } from '../../../types/currency';
 import { PaymentMethod } from '../../../types/paymentMethod';
@@ -14,6 +16,8 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
   const onClose = () => {
     setIsVisible(false);
   };
+  const [createClient, { data, loading, error }] = useMutation<{ name: string }>(CREATE_CLIENT);
+
   return (
     <Drawer
       bodyStyle={{ paddingBottom: 80 }}
@@ -22,7 +26,11 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
       width={720}
       onClose={onClose}
     >
-      <Form layout="vertical" name="create-client" onFinish={(values: any) => console.log(values)}>
+      <Form
+        layout="vertical"
+        name="create-client"
+        onFinish={(newClient: ClientInput) => createClient({ variables: { newClient: { ...newClient, userId: 999 } } })}
+      >
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter user name' }]}>
@@ -35,7 +43,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
               name="unifiedVatNumber"
               rules={[{ required: true, message: 'Please enter Unified VAT number' }]}
             >
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
         </Row>
@@ -47,7 +55,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
               name="vatNumber"
               rules={[{ required: true, message: 'Please enter VAT number' }]}
             >
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -55,7 +63,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
               <Select
                 options={Object.keys(Currency).map(item => ({
                   label: Currency[item as keyof typeof Currency],
-                  value: item,
+                  value: 1,
                 }))}
                 placeholder="Please select a currency"
               />
@@ -66,7 +74,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Account balance" name="accountBalance">
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -124,7 +132,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
               name="postcode"
               rules={[{ required: true, message: 'Please choose the postcode' }]}
             >
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
         </Row>
@@ -159,7 +167,7 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Account number" name="accountNumber">
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
           <Col span={12}>
