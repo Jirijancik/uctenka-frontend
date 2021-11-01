@@ -1,3 +1,4 @@
 export enum PaymentTerms {
-  AfterTwoWeeks,
+  AfterTwoWeeks = 'After two weeks',
+  Other = 'Other',
 }
