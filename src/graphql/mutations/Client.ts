@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { Client } from '../queries/Client';
+import { Client } from '../queries/Business';
 
 export type ClientInput = Omit<Client, '_id'>;
 

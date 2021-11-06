@@ -1,5 +1,5 @@
 import { ContainerOutlined, ProjectOutlined } from '@ant-design/icons';
-import { Layout as AntLayout, Menu } from 'antd';
+import { Avatar, Layout as AntLayout, Menu, Row, Space } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Layout.css';
@@ -25,7 +25,7 @@ export const Layout: React.FC = props => {
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<ProjectOutlined />}>
-            <Link to="clients">Clients</Link>
+            <Link to="clients">Enterprises</Link>
           </Menu.Item>
           <SubMenu key="3" icon={<ContainerOutlined />} title="Faktury">
             <Link to="invoice-recieved">
@@ -38,7 +38,13 @@ export const Layout: React.FC = props => {
         </Menu>
       </Sider>
       <AntLayout className="site-layout" style={{ marginLeft: 200 }}>
-        <Header style={{ padding: 0, backgroundColor: 'white' }} />
+        <Header style={{ padding: 0, backgroundColor: 'white' }}>
+          <Row align="middle" justify="end">
+            <Space style={{ paddingRight: 10 }}>
+              JIRI JANCIK <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>JJ</Avatar>
+            </Space>
+          </Row>
+        </Header>
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
             {children}

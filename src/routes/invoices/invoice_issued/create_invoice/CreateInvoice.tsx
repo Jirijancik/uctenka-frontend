@@ -4,7 +4,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
 import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
-import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Client';
+import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Business';
 
 export const CreateInvoiceIssued: React.VFC = () => {
   const [clients, setClients] = useState<ClientsData[]>([]);
