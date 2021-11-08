@@ -42,9 +42,9 @@ export const CreateInvoiceIssued: React.VFC = () => {
           <Form.Item label="Supplier" name="supplier">
             <Select placeholder="vyber dodavatele">
               {!loading &&
-                data?.getClients?.map((client: BusinessesData['getClients'][number]) => (
-                  <Select.Option key={client._id} value={client._id}>
-                    {client.name}: {client.city} {client.street}, {client.country}
+                data?.getBusinesses?.map((business: BusinessesData['getBusinesses'][number]) => (
+                  <Select.Option key={business._id} value={business._id}>
+                    {business.name}: {business.city} {business.street}, {business.country}
                   </Select.Option>
                 ))}
             </Select>

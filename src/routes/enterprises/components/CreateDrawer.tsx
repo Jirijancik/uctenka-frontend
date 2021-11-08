@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { Button, Col, Drawer, Form, Input, InputNumber, Row, Select, Space } from 'antd';
 import React from 'react';
-import { BusinessInput, CREATE_BUSINESS } from '../../../graphql/mutations/Client';
+import { BusinessInput, CREATE_BUSINESS } from '../../../graphql/mutations/Business';
 import { BusinessType } from '../../../types/businessType';
 import { Currency } from '../../../types/currency';
 import { PaymentMethod } from '../../../types/paymentMethod';
@@ -17,6 +17,10 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
     setIsVisible(false);
   };
   const [createBusiness, { data, loading, error }] = useMutation<{ name: string }>(CREATE_BUSINESS);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <Drawer
@@ -35,7 +39,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
       >
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter user name' }]}>
+            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter user name', min: 3 }]}>
               <Input placeholder="Please enter client name" />
             </Form.Item>
           </Col>
@@ -75,7 +79,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item label="Account balance" name="accountBalance">
+            <Form.Item required label="Account balance" name="accountBalance">
               <InputNumber />
             </Form.Item>
           </Col>

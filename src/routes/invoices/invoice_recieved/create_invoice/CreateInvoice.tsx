@@ -7,7 +7,7 @@ import { InputNumber } from '../../../../components/form/Input/InputNumber';
 import { BusinessesData, GET_BUSINESSES } from '../../../../graphql/queries/Business';
 
 export const CreateInvoiceRecieved: React.VFC = () => {
-  const { data, error, loading: loadingClients } = useQuery<BusinessesData>(GET_BUSINESSES);
+  const { data, error, loading: loadingBusinesses } = useQuery<BusinessesData>(GET_BUSINESSES);
 
   const handleOnFinish = (item: any) => {
     console.warn(item);
@@ -36,11 +36,11 @@ export const CreateInvoiceRecieved: React.VFC = () => {
           onFinish={handleOnFinish}
         >
           <Form.Item label="Supplier" name="supplier">
-            <Select loading={loadingClients} placeholder="vyber dodavatele">
-              {!loadingClients &&
-                data?.getClients?.map((client: BusinessesData['getClients'][number]) => (
-                  <Select.Option key={client._id} value={client._id}>
-                    {client.name}: {client.city} {client.street}, {client.country}
+            <Select loading={loadingBusinesses} placeholder="vyber dodavatele">
+              {!loadingBusinesses &&
+                data?.getBusinesses?.map((business: BusinessesData['getBusinesses'][number]) => (
+                  <Select.Option key={business._id} value={business._id}>
+                    {business.name}: {business.city} {business.street}, {business.country}
                   </Select.Option>
                 ))}
             </Select>

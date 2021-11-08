@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { BusinessType } from '../../types/businessType';
 import { Currency } from '../../types/currency';
 import { PaymentMethod } from '../../types/paymentMethod';
-import { PaymentTerms } from '../../types/paymentTerms';
 
 export interface Business {
   _id: string;
@@ -16,18 +15,18 @@ export interface Business {
   mobilePhone: string;
   name: string;
   paymentMethod?: PaymentMethod;
-  paymentTerms?: PaymentTerms;
+  paymentTerms?: number;
   postcode: number;
   street: string;
-  typeOfBussiness?: BusinessType;
+  typeOfBusiness?: BusinessType;
   unifiedVatNumber: number;
   userId: string;
   vatNumber?: number;
 }
 
 export const GET_BUSINESSES = gql`
-  query getClients {
-    getClients {
+  query getBusinesses {
+    getBusinesses {
       _id
       city
       country
@@ -39,7 +38,7 @@ export const GET_BUSINESSES = gql`
 `;
 
 export interface BusinessesData {
-  getClients: {
+  getBusinesses: {
     _id: Business['_id'];
     city: Business['city'];
     country: Business['country'];
