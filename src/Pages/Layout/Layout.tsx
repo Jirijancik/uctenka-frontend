@@ -25,7 +25,7 @@ export const Layout: React.FC = props => {
             <Link to="dashboard">Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<ProjectOutlined />}>
-            <Link to="clients">Enterprises</Link>
+            <Link to="enterprises">Enterprises</Link>
           </Menu.Item>
           <SubMenu key="3" icon={<ContainerOutlined />} title="Faktury">
             <Link to="invoice-recieved">

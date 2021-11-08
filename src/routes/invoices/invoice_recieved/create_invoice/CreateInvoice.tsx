@@ -4,10 +4,10 @@ import TextArea from 'antd/lib/input/TextArea';
 import React from 'react';
 import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
-import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Business';
+import { BusinessesData, GET_BUSINESSES } from '../../../../graphql/queries/Business';
 
 export const CreateInvoiceRecieved: React.VFC = () => {
-  const { data, error, loading: loadingClients } = useQuery<ClientsData>(GET_CLIENTS);
+  const { data, error, loading: loadingClients } = useQuery<BusinessesData>(GET_BUSINESSES);
 
   const handleOnFinish = (item: any) => {
     console.warn(item);
@@ -38,7 +38,7 @@ export const CreateInvoiceRecieved: React.VFC = () => {
           <Form.Item label="Supplier" name="supplier">
             <Select loading={loadingClients} placeholder="vyber dodavatele">
               {!loadingClients &&
-                data?.getClients?.map((client: ClientsData['getClients'][number]) => (
+                data?.getClients?.map((client: BusinessesData['getClients'][number]) => (
                   <Select.Option key={client._id} value={client._id}>
                     {client.name}: {client.city} {client.street}, {client.country}
                   </Select.Option>

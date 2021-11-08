@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row } from 'antd';
 import React, { useState } from 'react';
-import { CreateClientDrawer } from './components/CreateDrawer';
+import { CreateBusinessDrawer } from './components/CreateDrawer';
 
 export const EnterprisesPage: React.VFC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,7 +22,7 @@ export const EnterprisesPage: React.VFC = () => {
         </Col>
       </Row>
 
-      <CreateClientDrawer isVisible={isVisible} setIsVisible={setIsVisible} />
+      <CreateBusinessDrawer isVisible={isVisible} setIsVisible={setIsVisible} />
     </div>
   );
 };

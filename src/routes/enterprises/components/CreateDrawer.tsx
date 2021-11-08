@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { Button, Col, Drawer, Form, Input, InputNumber, Row, Select, Space } from 'antd';
 import React from 'react';
-import { ClientInput, CREATE_CLIENT } from '../../../graphql/mutations/Client';
+import { BusinessInput, CREATE_BUSINESS } from '../../../graphql/mutations/Client';
 import { BusinessType } from '../../../types/businessType';
 import { Currency } from '../../../types/currency';
 import { PaymentMethod } from '../../../types/paymentMethod';
@@ -9,14 +9,14 @@ import { PaymentTerms } from '../../../types/paymentTerms';
 
 const { Option } = Select;
 
-export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (state: boolean) => void }> = ({
+export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (state: boolean) => void }> = ({
   isVisible,
   setIsVisible,
 }) => {
   const onClose = () => {
     setIsVisible(false);
   };
-  const [createClient, { data, loading, error }] = useMutation<{ name: string }>(CREATE_CLIENT);
+  const [createBusiness, { data, loading, error }] = useMutation<{ name: string }>(CREATE_BUSINESS);
 
   return (
     <Drawer
@@ -29,7 +29,9 @@ export const CreateClientDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
       <Form
         layout="vertical"
         name="create-client"
-        onFinish={(newClient: ClientInput) => createClient({ variables: { newClient: { ...newClient, userId: 999 } } })}
+        onFinish={(newBusiness: BusinessInput) =>
+          createBusiness({ variables: { newBusiness: { ...newBusiness, userId: 999 } } })
+        }
       >
         <Row gutter={16}>
           <Col span={12}>

@@ -4,13 +4,13 @@ import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
 import { Date } from '../../../../components/form/Date/Date';
 import { InputNumber } from '../../../../components/form/Input/InputNumber';
-import { ClientsData, GET_CLIENTS } from '../../../../graphql/queries/Business';
+import { BusinessesData, GET_BUSINESSES } from '../../../../graphql/queries/Business';
 
 export const CreateInvoiceIssued: React.VFC = () => {
-  const [clients, setClients] = useState<ClientsData[]>([]);
+  const [clients, setClients] = useState<BusinessesData[]>([]);
   const [invoices, setInvoices] = useState<{ item: any }>();
 
-  const { data, error, loading } = useQuery<ClientsData>(GET_CLIENTS);
+  const { data, error, loading } = useQuery<BusinessesData>(GET_BUSINESSES);
   console.log(data, 'data');
 
   const handleOnFinish = (item: any) => {
@@ -42,7 +42,7 @@ export const CreateInvoiceIssued: React.VFC = () => {
           <Form.Item label="Supplier" name="supplier">
             <Select placeholder="vyber dodavatele">
               {!loading &&
-                data?.getClients?.map((client: ClientsData['getClients'][number]) => (
+                data?.getClients?.map((client: BusinessesData['getClients'][number]) => (
                   <Select.Option key={client._id} value={client._id}>
                     {client.name}: {client.city} {client.street}, {client.country}
                   </Select.Option>

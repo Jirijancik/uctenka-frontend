@@ -15,7 +15,7 @@ export const Dashboard: React.VFC = () => {
         <Col span={5}>
           <Card title="Enterprises">
             <div>Currently you have no businesses, try to add one!</div>
-            <Button shape="circle" size="large" type="primary" onClick={() => history.push('/clients')}>
+            <Button shape="circle" size="large" type="primary" onClick={() => history.push('/enterprises')}>
               +
             </Button>
           </Card>
