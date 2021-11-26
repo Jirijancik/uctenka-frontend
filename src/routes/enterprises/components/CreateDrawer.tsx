@@ -56,11 +56,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item
-              label="VAT number"
-              name="vatNumber"
-              rules={[{ required: true, message: 'Please enter VAT number' }]}
-            >
+            <Form.Item label="VAT number" name="vatNumber">
               <InputNumber />
             </Form.Item>
           </Col>
@@ -68,8 +64,8 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
             <Form.Item label="Currency" name="currency" rules={[{ required: true, message: 'Please enter currency' }]}>
               <Select
                 options={Object.keys(Currency).map(item => ({
-                  label: Currency[item as keyof typeof Currency],
-                  value: 1,
+                  label: item,
+                  value: Currency[item as keyof typeof Currency],
                 }))}
                 placeholder="Please select a currency"
               />
@@ -79,15 +75,10 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item required label="Account balance" name="accountBalance">
-              <InputNumber />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
             <Form.Item label="Payment terms" name="paymentTerms">
               <Select
                 options={Object.keys(PaymentTerms).map(item => ({
-                  label: PaymentTerms[item as keyof typeof PaymentTerms],
+                  label: item,
                   value: item,
                 }))}
                 placeholder="Please choose the payment type"
@@ -156,13 +147,13 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
           <Col span={12}>
             <Form.Item
               label="Type of bussiness"
-              name="typeOfBussiness"
+              name="bussinessType"
               rules={[{ required: true, message: 'Please choose the Type of bussiness' }]}
             >
               <Select
                 options={Object.keys(BusinessType).map(item => ({
-                  label: BusinessType[item as keyof typeof BusinessType],
-                  value: item,
+                  label: item,
+                  value: BusinessType[item as keyof typeof BusinessType],
                 }))}
                 placeholder="Please choose the Type of bussiness"
               />
@@ -180,8 +171,8 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
             <Form.Item label="Payment method" name="paymentMethod">
               <Select
                 options={Object.keys(PaymentMethod).map(item => ({
-                  label: PaymentMethod[item as keyof typeof PaymentMethod],
-                  value: item,
+                  label: item,
+                  value: PaymentMethod[item as keyof typeof PaymentMethod],
                 }))}
                 placeholder="Please choose the Type of bussiness"
               />

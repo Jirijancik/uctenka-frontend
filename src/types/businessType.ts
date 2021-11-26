@@ -1,4 +1,4 @@
 export enum BusinessType {
-  Company = 'Company',
-  PrivatePerson = 'PrivatePerson',
+  NaturalPerson = 'naturalPerson',
+  LegalPerson = 'legalPerson',
 }
