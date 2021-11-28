@@ -33,9 +33,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
       <Form
         layout="vertical"
         name="create-client"
-        onFinish={(newBusiness: BusinessInput) =>
-          createBusiness({ variables: { newBusiness: { ...newBusiness, userId: 999 } } })
-        }
+        onFinish={(newBusiness: BusinessInput) => createBusiness({ variables: { newBusiness } })}
       >
         <Row gutter={16}>
           <Col span={12}>
@@ -79,7 +77,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               <Select
                 options={Object.keys(PaymentTerms).map(item => ({
                   label: item,
-                  value: item,
+                  value: PaymentTerms[item as keyof typeof PaymentTerms],
                 }))}
                 placeholder="Please choose the payment type"
               />

@@ -118,9 +118,6 @@ export const CreateInvoiceRecieved: React.VFC = () => {
           </Button>
         </Form>
       </Card>
-      <button type="button" onClick={() => localStorage.removeItem('token')}>
-        LOGOUT
-      </button>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { ContainerOutlined, ProjectOutlined } from '@ant-design/icons';
-import { Avatar, Layout as AntLayout, Menu, Row, Space } from 'antd';
+import { Avatar, Button, Layout as AntLayout, Menu, Row, Space } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Layout.css';
 
 const { Header, Content, Footer, Sider } = AntLayout;
@@ -9,6 +9,15 @@ const { SubMenu } = Menu;
 
 export const Layout: React.FC = props => {
   const { children } = props;
+
+  const history = useHistory();
+
+  const logOutUser = () => {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('email');
+    history.push('/login');
+  };
+
   return (
     <AntLayout>
       <Sider
@@ -42,6 +51,13 @@ export const Layout: React.FC = props => {
           <Row align="middle" justify="end">
             <Space style={{ paddingRight: 10 }}>
               JIRI JANCIK <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>JJ</Avatar>
+              <Button
+                style={{ color: '#f56a00', backgroundColor: '#fde3cf', height: '100%' }}
+                type="default"
+                onClick={() => logOutUser()}
+              >
+                LOGOUT
+              </Button>
             </Space>
           </Row>
         </Header>
