@@ -1,47 +1,49 @@
-import { useLazyQuery } from '@apollo/client';
-import { Button, Checkbox, Col, Form, Input, Typography } from 'antd';
+import { useMutation } from '@apollo/client';
+import { Button, Checkbox, Col, Form, Input, Typography, notification, Alert } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router';
-import { LOGIN_USER } from '../../../graphql/queries/User';
+import { LoginUserData, LoginUserVariables, LOGIN_USER } from '../../../graphql/queries/loginUser';
 import { useSessionContext } from '../../../Router/SessionContext';
+import { getCookie } from '../../../utils/getCookie';
 
 const { Title } = Typography;
 
-interface LoginUserResponse {
-  loginUser: {
-    token: string;
-    user: {
-      email: string;
-    };
-  };
-}
-
 interface LoginUserInput {
-  name: string;
   email: string;
   password: string;
+  remember: boolean;
 }
 
 export const LoginForm: React.VFC = () => {
   const history = useHistory();
-
   const [session, setSession] = useSessionContext();
 
-  const onLoginIn = ({ loginUser }: LoginUserResponse) => {
-    sessionStorage.setItem('token', loginUser.token);
-    sessionStorage.setItem('email', loginUser.user.email);
+  const onLoginIn = ({ login }: LoginUserData) => {
+    const token = getCookie('connected.sid');
+
+    sessionStorage.setItem('token', token ?? '');
+    sessionStorage.setItem('email', login.email);
     setSession({ ...session, isAuthenticated: true });
     history.push('/dashboard');
   };
 
-  const [fetchLoginUser, { error }] = useLazyQuery(LOGIN_USER, {
-    onCompleted: onLoginIn,
+  const [fetchLoginUser, { error }] = useMutation<LoginUserData, LoginUserVariables>(LOGIN_USER, {
+    onCompleted: response => {
+      onLoginIn(response);
+      notification.success({
+        message: 'Sucess',
+        description: 'Successful login',
+      });
+    },
+    onError: err => {
+      console.error(err);
+    },
   });
 
-  const onFinish = (values: LoginUserInput) => {
+  const onFinish = ({ email, password }: LoginUserInput) => {
     fetchLoginUser({
       variables: {
-        ...values,
+        user: { email, password },
       },
     });
   };
@@ -82,13 +84,7 @@ export const LoginForm: React.VFC = () => {
           </Button>
         </Form.Item>
 
-        {error && (
-          <>
-            <h1>{error.message}</h1>
-            <div>{error.extraInfo}</div>
-            <div>{error.stack}</div>
-          </>
-        )}
+        {!!error && <Alert message={error.message} type="error" />}
       </Form>
     </Col>
   );

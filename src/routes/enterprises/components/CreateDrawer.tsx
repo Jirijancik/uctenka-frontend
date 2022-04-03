@@ -1,7 +1,8 @@
-import { useMutation } from '@apollo/client';
-import { Button, Col, Drawer, Form, Input, InputNumber, Row, Select, Space } from 'antd';
+import { Button, Col, Drawer, Form, Input, InputNumber, notification, Row, Select, Space } from 'antd';
 import React from 'react';
-import { BusinessInput, CREATE_BUSINESS } from '../../../graphql/mutations/Business';
+import { CreateEnterpriseInput } from '../../../api/graphql/enterprise/mutations/create';
+import { useCreateEnterprise } from '../../../api/graphql/enterprise/useCreate';
+import { GET_ENTERPRISES } from '../../../graphql/queries/getEnterprises';
 import { BusinessType } from '../../../types/businessType';
 import { Currency } from '../../../types/currency';
 import { PaymentMethod } from '../../../types/paymentMethod';
@@ -16,11 +17,8 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
   const onClose = () => {
     setIsVisible(false);
   };
-  const [createBusiness, { data, loading, error }] = useMutation<{ name: string }>(CREATE_BUSINESS);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const { create, isCreating } = useCreateEnterprise();
 
   return (
     <Drawer
@@ -33,7 +31,19 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
       <Form
         layout="vertical"
         name="create-client"
-        onFinish={(newBusiness: BusinessInput) => createBusiness({ variables: { newBusiness } })}
+        onFinish={(newEnterprise: CreateEnterpriseInput['newEnterprise']) => {
+          create({
+            variables: { newEnterprise },
+            onCompleted() {
+              onClose();
+              console.log(isVisible, ' isVisible');
+              notification.success({
+                message: 'Enterprise Created',
+              });
+            },
+            refetchQueries: [GET_ENTERPRISES],
+          });
+        }}
       >
         <Row gutter={16}>
           <Col span={12}>
@@ -139,7 +149,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               name="mobilePhone"
               rules={[{ required: true, message: 'Please choose the mobilePhone' }]}
             >
-              <Input />
+              <InputNumber />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -179,11 +189,11 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         </Row>
 
         <Space>
-          <Button htmlType="submit" type="primary">
+          <Button htmlType="submit" loading={isCreating} type="primary">
             Submit
           </Button>
 
-          <Button type="dashed" onClick={onClose}>
+          <Button loading={isCreating} type="dashed" onClick={onClose}>
             Close
           </Button>
         </Space>

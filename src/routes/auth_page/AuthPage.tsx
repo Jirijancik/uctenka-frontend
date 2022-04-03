@@ -16,7 +16,7 @@ export const AuthPage: React.VFC = () => {
       </Header>
       <Content style={{ height: '80vh', overflow: 'auto' }}>
         <Row align="middle" justify="center">
-          {showingLogin ? <LoginForm /> : <RegisterForm />}
+          {showingLogin ? <LoginForm /> : <RegisterForm onRegister={setShowingLogin} />}
         </Row>
       </Content>
       <Footer>

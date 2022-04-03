@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
-import { Button, Col, Form, Input, Typography } from 'antd';
+import { Button, Col, Form, Input, notification, Typography } from 'antd';
 import React from 'react';
-import { REGISTER_USER } from '../../../graphql/mutations/User';
+import { CreateUserData, CreateUserVariables, CREATE_USER } from '../../../graphql/mutations/User';
 
 const { Title } = Typography;
 
@@ -12,18 +12,31 @@ interface RegisterUserInput {
   lastName: string;
 }
 
-export const RegisterForm: React.VFC = () => {
-  const [registerUser] = useMutation(REGISTER_USER);
+export const RegisterForm: React.VFC<{ onRegister: (showingLOgin: boolean) => void }> = ({ onRegister }) => {
+  const [createUser] = useMutation<CreateUserData, CreateUserVariables>(CREATE_USER, {
+    onCompleted(response) {
+      notification.success({
+        message: 'User created!',
+        description: `Proceed to log in as ${response.createUser.email}`,
+      });
+      onRegister(true);
+    },
+    onError(error) {
+      notification.error({
+        message: `Error: ${error.name}!`,
+        description: `There was an error creating the user: ${error.message}`,
+      });
+      console.error(error);
+    },
+  });
 
   const onFinish = (values: RegisterUserInput) => {
     const newUser = values;
-    registerUser({
+    createUser({
       variables: {
         newUser,
       },
-    })
-      .then(response => console.warn(response))
-      .catch(error => console.error(error));
+    });
   };
 
   return (
@@ -39,7 +52,11 @@ export const RegisterForm: React.VFC = () => {
         wrapperCol={{ span: 20 }}
         onFinish={onFinish}
       >
-        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ type: 'email', required: true, message: 'Please input your email!' }]}
+        >
           <Input autoComplete="off" />
         </Form.Item>
 
@@ -62,7 +79,7 @@ export const RegisterForm: React.VFC = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[{ required: true, message: 'Please input your password!', min: 4, max: 50 }]}
         >
           <Input.Password />
         </Form.Item>
