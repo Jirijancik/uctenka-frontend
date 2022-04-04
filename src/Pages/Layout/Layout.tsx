@@ -7,15 +7,16 @@ import './Layout.css';
 const { Header, Content, Footer, Sider } = AntLayout;
 const { SubMenu } = Menu;
 
+function deleteCookie(name: string) {
+  document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+}
+
 export const Layout: React.FC = props => {
   const { children } = props;
 
-  const history = useHistory();
-
   const logOutUser = () => {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('email');
-    history.push('/login');
+    deleteCookie('qid');
+    window.location.reload();
   };
 
   return (

@@ -1,5 +1,6 @@
 import { Button, Col, Layout, Row, Typography } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSessionContext } from '../../Router/SessionContext';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 

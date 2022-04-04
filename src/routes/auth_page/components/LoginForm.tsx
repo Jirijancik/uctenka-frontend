@@ -19,11 +19,11 @@ export const LoginForm: React.VFC = () => {
   const [session, setSession] = useSessionContext();
 
   const onLoginIn = ({ login }: LoginUserData) => {
-    const token = getCookie('connected.sid');
-
-    sessionStorage.setItem('token', token ?? '');
-    sessionStorage.setItem('email', login.email);
-    setSession({ ...session, isAuthenticated: true });
+    setSession({
+      ...session,
+      isAuthenticated: getCookie('qid'),
+      redirectPath: '/dashboard',
+    });
     history.push('/dashboard');
   };
 

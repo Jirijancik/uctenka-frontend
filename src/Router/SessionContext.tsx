@@ -1,15 +1,14 @@
 import { createContext, useContext, useState } from 'react';
+import { getCookie } from '../utils/getCookie';
 
 export type Session = {
   isAuthenticated?: boolean;
   redirectPath: string;
 };
 
-const getToken = () => sessionStorage.getItem('token');
-
 export const initialSession: Session = {
-  redirectPath: '/login',
-  isAuthenticated: Boolean(getToken()),
+  redirectPath: getCookie('qid') ? '/dashboard' : '/login',
+  isAuthenticated: getCookie('qid'),
 };
 
 export const SessionContext = createContext<[Session, (session: Session) => void]>([initialSession, () => {}]);
