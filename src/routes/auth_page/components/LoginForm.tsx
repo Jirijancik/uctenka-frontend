@@ -84,7 +84,7 @@ export const LoginForm: React.VFC = () => {
           </Button>
         </Form.Item>
 
-        {!!error && <Alert message={error.message} type="error" />}
+        {!!error && <Alert data-cy="unconfirmedEmail" message={error.message} type="error" />}
       </Form>
     </Col>
   );

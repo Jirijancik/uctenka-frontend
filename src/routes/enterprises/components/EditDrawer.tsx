@@ -1,6 +1,7 @@
 import { Button, Col, Drawer, Form, Input, InputNumber, notification, Row, Select, Space } from 'antd';
 import React from 'react';
 import { CreateEnterpriseInput } from '../../../api/graphql/enterprise/mutations/create';
+import { EditEnterpriseInput, EditEnterpriseVariables } from '../../../api/graphql/enterprise/mutations/edit';
 import { useCreateEnterprise } from '../../../api/graphql/enterprise/useCreate';
 import { useEditEnterprise } from '../../../api/graphql/enterprise/useEdit';
 import { GET_ENTERPRISES } from '../../../graphql/queries/getEnterprises';
@@ -32,9 +33,9 @@ export const EditBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
       <Form
         layout="vertical"
         name="create-client"
-        onFinish={(newEnterprise: CreateEnterpriseInput['newEnterprise']) => {
-          create({
-            variables: { newEnterprise },
+        onFinish={(newEnterprise: EditEnterpriseVariables) => {
+          edit({
+            variables: newEnterprise,
             onCompleted() {
               onClose();
               console.log(isVisible, ' isVisible');
@@ -190,11 +191,11 @@ export const EditBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
         </Row>
 
         <Space>
-          <Button htmlType="submit" loading={isCreating} type="primary">
+          <Button htmlType="submit" loading={isEditing} type="primary">
             Submit
           </Button>
 
-          <Button loading={isCreating} type="dashed" onClick={onClose}>
+          <Button loading={isEditing} type="dashed" onClick={onClose}>
             Close
           </Button>
         </Space>
