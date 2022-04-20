@@ -40,7 +40,6 @@ describe("complete login test!", () => {
       cy.url().should('include', "/login");
   });
 
-
   it("input password text visibility", () => {
       cy.get("#login_password").should("have.attr", "type").and("equal", "password");
       cy.get(".ant-input-password-icon").click();
