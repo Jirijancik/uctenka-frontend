@@ -1,4 +1,4 @@
-import { Card, Popconfirm, Table } from 'antd';
+import { Card, Popconfirm, Row, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { useState, VFC } from 'react';
 import { useDeleteEnterprise, UseDeleteEnterpriseShape } from '../../../api/graphql/enterprise/useDelete';
@@ -35,12 +35,20 @@ const getColumns = (handleDelete: UseDeleteEnterpriseShape['delete']): ColumnsTy
     dataIndex: 'operation',
     key: 'operation',
     render: (_, record) => (
-      <Popconfirm
-        title="Sure to delete?"
-        onConfirm={() => handleDelete({ variables: { id: { _id: record._id } }, refetchQueries: [GET_ENTERPRISES] })}
-      >
-        <a>Delete</a>
-      </Popconfirm>
+      <Row gutter={12}>
+        <Popconfirm
+          title="Sure to delete?"
+          onConfirm={() => handleDelete({ variables: { id: { _id: record._id } }, refetchQueries: [GET_ENTERPRISES] })}
+        >
+          <a>Delete</a>
+        </Popconfirm>
+        <Popconfirm
+          title="Sure to delete?"
+          onConfirm={() => handleDelete({ variables: { id: { _id: record._id } }, refetchQueries: [GET_ENTERPRISES] })}
+        >
+          <a>Edit</a>
+        </Popconfirm>
+      </Row>
     ),
   },
 ];
