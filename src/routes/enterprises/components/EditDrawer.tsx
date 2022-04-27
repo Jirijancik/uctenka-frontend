@@ -25,7 +25,7 @@ export const EditBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
   return (
     <Drawer
       bodyStyle={{ paddingBottom: 80 }}
-      title="Create a new client"
+      title="Edit a new client"
       visible={isVisible}
       width={720}
       onClose={onClose}
