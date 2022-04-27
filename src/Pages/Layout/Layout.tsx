@@ -32,16 +32,20 @@ export const Layout: React.FC = props => {
         <div className="logo">UCTENKA</div>
         <Menu defaultSelectedKeys={['1']} mode="inline" theme="dark">
           <Menu.Item key="1" icon={<ProjectOutlined />}>
-            <Link to="dashboard">Dashboard</Link>
+            <Link data-cy="menu-item-dashboard" to="dashboard">
+              Dashboard
+            </Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<ProjectOutlined />}>
-            <Link to="enterprises">Enterprises</Link>
+            <Link data-cy="menu-item-enterprises" to="enterprises">
+              Enterprises
+            </Link>
           </Menu.Item>
           <SubMenu key="3" icon={<ContainerOutlined />} title="Faktury">
-            <Link to="invoice-recieved">
+            <Link data-cy="menu-item-invoice-recieved" to="invoice-recieved">
               <Menu.Item key="31">Faktury Prijate</Menu.Item>
             </Link>
-            <Link to="invoice-issued">
+            <Link data-cy="menu-item-invoice-issued" to="invoice-issued">
               <Menu.Item key="32">Faktury Vydane</Menu.Item>
             </Link>
           </SubMenu>
@@ -53,6 +57,7 @@ export const Layout: React.FC = props => {
             <Space style={{ paddingRight: 10 }}>
               JIRI JANCIK <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>JJ</Avatar>
               <Button
+                data-cy="dashboard-logout-btn"
                 style={{ color: '#f56a00', backgroundColor: '#fde3cf', height: '100%' }}
                 type="default"
                 onClick={() => logOutUser()}

@@ -1,8 +1,10 @@
-import { Card, Popconfirm, Row, Table } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Popconfirm, Row, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-import { useState, VFC } from 'react';
+import { VFC } from 'react';
 import { useDeleteEnterprise, UseDeleteEnterpriseShape } from '../../../api/graphql/enterprise/useDelete';
 import { EnterpriseRecord, GET_ENTERPRISES } from '../../../graphql/queries/getEnterprises';
+import { CreateEnterpriseButton } from './CreateButton';
 
 const getColumns = (handleDelete: UseDeleteEnterpriseShape['delete']): ColumnsType<EnterpriseRecord> => [
   {
@@ -53,15 +55,25 @@ const getColumns = (handleDelete: UseDeleteEnterpriseShape['delete']): ColumnsTy
   },
 ];
 
-export const ClientsList: VFC<{ data: EnterpriseRecord[]; isLoading: boolean }> = ({ data, isLoading }) => {
-  const [isVisible, setIsVisible] = useState(false);
+export const ClientsList: VFC<{ data: EnterpriseRecord[]; isLoading: boolean; onCreate: () => void }> = ({
+  data,
+  isLoading,
+  onCreate,
+}) => {
   const { delete: handleDelete, isDeleting } = useDeleteEnterprise();
 
   const columns = getColumns(handleDelete);
 
   return (
-    <Card loading={isLoading || isDeleting} title="Clients list">
-      <Table columns={columns} dataSource={data} />
+    <Card extra={<CreateEnterpriseButton onClick={onCreate} />} loading={isLoading || isDeleting} title="Clients list">
+      {data ? (
+        <Table columns={columns} dataSource={data} />
+      ) : (
+        <>
+          <div>Currently you have no clients, try to add one</div>
+          <CreateEnterpriseButton onClick={onCreate} />
+        </>
+      )}
     </Card>
   );
 };
