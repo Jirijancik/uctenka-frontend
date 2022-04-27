@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Card, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { VFC } from 'react';

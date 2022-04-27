@@ -1,8 +1,6 @@
 import { Button, Col, Drawer, Form, Input, InputNumber, notification, Row, Select, Space } from 'antd';
 import React from 'react';
-import { CreateEnterpriseInput } from '../../../api/graphql/enterprise/mutations/create';
-import { EditEnterpriseInput, EditEnterpriseVariables } from '../../../api/graphql/enterprise/mutations/edit';
-import { useCreateEnterprise } from '../../../api/graphql/enterprise/useCreate';
+import { EditEnterpriseVariables } from '../../../api/graphql/enterprise/mutations/edit';
 import { useEditEnterprise } from '../../../api/graphql/enterprise/useEdit';
 import { GET_ENTERPRISES } from '../../../graphql/queries/getEnterprises';
 import { BusinessType } from '../../../types/businessType';
