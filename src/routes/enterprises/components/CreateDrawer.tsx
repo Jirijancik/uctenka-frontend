@@ -70,6 +70,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
           <Col span={12}>
             <Form.Item label="Currency" name="currency" rules={[{ required: true, message: 'Please enter currency' }]}>
               <Select
+                data-cy="establishment-select-currency"
                 options={Object.keys(Currency).map(item => ({
                   label: item,
                   value: Currency[item as keyof typeof Currency],
@@ -84,6 +85,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
           <Col span={12}>
             <Form.Item label="Payment terms" name="paymentTerms">
               <Select
+                data-cy="establishment-select-payment-terms"
                 options={Object.keys(PaymentTerms).map(item => ({
                   label: item,
                   value: PaymentTerms[item as keyof typeof PaymentTerms],
