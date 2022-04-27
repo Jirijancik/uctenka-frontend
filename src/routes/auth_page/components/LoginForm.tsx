@@ -18,7 +18,7 @@ export const LoginForm: React.VFC = () => {
   const history = useHistory();
   const [session, setSession] = useSessionContext();
 
-  const onLoginIn = ({ login }: LoginUserData) => {
+  const onLoginIn = () => {
     setSession({
       ...session,
       isAuthenticated: getCookie('qid'),
@@ -28,8 +28,8 @@ export const LoginForm: React.VFC = () => {
   };
 
   const [fetchLoginUser, { error }] = useMutation<LoginUserData, LoginUserVariables>(LOGIN_USER, {
-    onCompleted: response => {
-      onLoginIn(response);
+    onCompleted: () => {
+      onLoginIn();
       notification.success({
         message: 'Sucess',
         description: 'Successful login',
@@ -63,7 +63,7 @@ export const LoginForm: React.VFC = () => {
         onFinish={onFinish}
       >
         <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
-          <Input type="email" />
+          <Input data-cy="login-email" type="email" />
         </Form.Item>
 
         <Form.Item
@@ -71,7 +71,7 @@ export const LoginForm: React.VFC = () => {
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password />
+          <Input.Password data-cy="login-password" />
         </Form.Item>
 
         <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 4, span: 16 }}>
@@ -79,7 +79,7 @@ export const LoginForm: React.VFC = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 11, span: 16 }}>
-          <Button htmlType="submit" type="primary">
+          <Button data-cy="login-btn" htmlType="submit" type="primary">
             Login
           </Button>
         </Form.Item>

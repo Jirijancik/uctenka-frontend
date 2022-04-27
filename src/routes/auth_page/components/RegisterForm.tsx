@@ -57,7 +57,7 @@ export const RegisterForm: React.VFC<{ onRegister: (showingLOgin: boolean) => vo
           name="email"
           rules={[{ type: 'email', required: true, message: 'Please input your email!' }]}
         >
-          <Input autoComplete="off" />
+          <Input autoComplete="off" data-cy="register-email" />
         </Form.Item>
 
         <Form.Item
@@ -65,7 +65,7 @@ export const RegisterForm: React.VFC<{ onRegister: (showingLOgin: boolean) => vo
           name="firstName"
           rules={[{ required: true, message: 'Please input your firstName!' }]}
         >
-          <Input />
+          <Input data-cy="register-first-name" />
         </Form.Item>
 
         <Form.Item
@@ -73,7 +73,7 @@ export const RegisterForm: React.VFC<{ onRegister: (showingLOgin: boolean) => vo
           name="lastName"
           rules={[{ required: true, message: 'Please input your lastName!' }]}
         >
-          <Input />
+          <Input data-cy="register-last-name" />
         </Form.Item>
 
         <Form.Item
@@ -81,11 +81,11 @@ export const RegisterForm: React.VFC<{ onRegister: (showingLOgin: boolean) => vo
           name="password"
           rules={[{ required: true, message: 'Please input your password!', min: 4, max: 50 }]}
         >
-          <Input.Password />
+          <Input.Password data-cy="register-password" />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 11, span: 16 }}>
-          <Button htmlType="submit" type="primary">
+          <Button data-cy="register-btn" htmlType="submit" type="primary">
             Register
           </Button>
         </Form.Item>
