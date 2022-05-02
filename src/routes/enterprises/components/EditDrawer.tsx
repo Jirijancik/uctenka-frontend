@@ -36,7 +36,6 @@ export const EditBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible: (
             variables: newEnterprise,
             onCompleted() {
               onClose();
-              console.log(isVisible, ' isVisible');
               notification.success({
                 message: 'Enterprise Created',
               });

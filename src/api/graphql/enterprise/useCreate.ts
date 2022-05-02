@@ -1,4 +1,5 @@
-import { MutationFunctionOptions, useMutation } from '@apollo/client';
+import { MutationFunctionOptions } from '@apollo/client';
+import { useMutation } from '@apollo/react-hooks';
 import { notification } from 'antd';
 import { CreateEnterpriseInput, CREATE_ENTERPRISE } from './mutations/create';
 
@@ -11,8 +12,6 @@ interface UseCreateEnterpriseShape {
 
 const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError'> = {
   onCompleted() {
-    console.log('WTF');
-
     notification.success({
       message: 'Enterprise Created',
     });
@@ -29,17 +28,12 @@ const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError'> = {
 export function useCreateEnterprise(): UseCreateEnterpriseShape {
   const [createEnterprise, { loading: isCreating }] = useMutation<null, CreateEnterpriseInput>(CREATE_ENTERPRISE);
 
-  const handleCreate = (baseOptions: MutationOptions) => {
+  const handleCreate = (
+    baseOptions: Pick<MutationOptions, 'onCompleted' | 'onError' | 'refetchQueries' | 'variables'>,
+  ) => {
     createEnterprise({
       ...defaultOptions,
       ...baseOptions,
-      onCompleted() {
-        console.log('WTF');
-
-        notification.success({
-          message: 'Enterprise Created',
-        });
-      },
     });
   };
 

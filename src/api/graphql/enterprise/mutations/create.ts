@@ -10,3 +10,4 @@ export const CREATE_ENTERPRISE = gql`
 `;
 
 export type CreateEnterpriseInput = { newEnterprise: Omit<Enterprise, '_id' | 'user' | 'accountBalance'> };
+export type CreateEnterpriseResponse = { createEnterprise: { _id: number } };

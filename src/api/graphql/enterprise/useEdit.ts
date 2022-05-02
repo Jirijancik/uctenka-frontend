@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { MutationFunctionOptions, useMutation } from '@apollo/client';
+import { MutationFunctionOptions } from '@apollo/client';
+import { useMutation } from '@apollo/react-hooks';
 import { notification } from 'antd';
 import { EditEnterpriseResponse, EditEnterpriseVariables, EDIT_ENTERPRISE } from './mutations/edit';
 
@@ -10,7 +11,7 @@ export interface UseEditEnterpriseShape {
   edit: (baseOptions: MutationOptions) => void;
 }
 
-const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError' | 'update'> = {
+const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError'> = {
   onCompleted() {
     notification.success({
       message: 'Enterprise deleted',
@@ -30,7 +31,9 @@ export function useEditEnterprise(): UseEditEnterpriseShape {
     EDIT_ENTERPRISE,
   );
 
-  const handleEdit = (baseOptions: MutationOptions) => {
+  const handleEdit = (
+    baseOptions: Pick<MutationOptions, 'onCompleted' | 'onError' | 'refetchQueries' | 'variables'>,
+  ) => {
     editEnterprise({
       ...defaultOptions,
       ...baseOptions,

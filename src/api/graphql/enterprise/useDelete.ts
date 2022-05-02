@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { MutationFunctionOptions, useMutation } from '@apollo/client';
+import { MutationFunctionOptions } from '@apollo/client';
+import { useMutation } from '@apollo/react-hooks';
 import { notification } from 'antd';
 import { DeleteEnterpriseInput, DeleteEnterpriseResponse, DELETE_ENTERPRISE } from './mutations/delete';
 
@@ -10,10 +11,8 @@ export interface UseDeleteEnterpriseShape {
   delete: (baseOptions: MutationOptions) => void;
 }
 
-const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError' | 'update'> = {
+const defaultOptions: Pick<MutationOptions, 'onCompleted' | 'onError'> = {
   onCompleted() {
-    console.log('WTF');
-
     notification.success({
       message: 'Enterprise deleted',
     });
@@ -32,7 +31,9 @@ export function useDeleteEnterprise(): UseDeleteEnterpriseShape {
     DELETE_ENTERPRISE,
   );
 
-  const handleDelete = (baseOptions: MutationOptions) => {
+  const handleDelete = (
+    baseOptions: Pick<MutationOptions, 'onCompleted' | 'onError' | 'refetchQueries' | 'variables'>,
+  ) => {
     deleteEnterprise({
       ...defaultOptions,
       ...baseOptions,

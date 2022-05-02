@@ -25,7 +25,11 @@ export const AuthPage: React.VFC = () => {
           <Col>
             <Title level={4}>You don't have an accout? Register here!</Title>
             <Row align="middle" justify="center">
-              <Button title="Register" onClick={() => setShowingLogin(!showingLogin)}>
+              <Button
+                data-cy={showingLogin ? 'login-button-go-to-register' : 'login-button-go-to-login'}
+                title={showingLogin ? 'Register' : 'Login'}
+                onClick={() => setShowingLogin(!showingLogin)}
+              >
                 {showingLogin ? 'Register' : 'Login'}
               </Button>
             </Row>

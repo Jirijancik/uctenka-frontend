@@ -23,6 +23,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
   return (
     <Drawer
       bodyStyle={{ paddingBottom: 80 }}
+      data-cy="enterprises-drawer-create"
       title="Create a new client"
       visible={isVisible}
       width={720}
@@ -47,7 +48,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter user name', min: 3 }]}>
-              <Input data-cy="establishment-input-name" placeholder="Please enter client name" />
+              <Input data-cy="enterprises-input-name" placeholder="Please enter client name" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -56,7 +57,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               name="unifiedVatNumber"
               rules={[{ required: true, message: 'Please enter Unified VAT number' }]}
             >
-              <InputNumber data-cy="establishment-input-unified-vat-number" />
+              <InputNumber data-cy="enterprises-input-unified-vat-number" />
             </Form.Item>
           </Col>
         </Row>
@@ -64,13 +65,13 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="VAT number" name="vatNumber">
-              <InputNumber data-cy="establishment-input-vat-number" />
+              <InputNumber data-cy="enterprises-input-vat-number" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Currency" name="currency" rules={[{ required: true, message: 'Please enter currency' }]}>
               <Select
-                data-cy="establishment-select-currency"
+                data-cy="enterprises-select-currency"
                 options={Object.keys(Currency).map(item => ({
                   label: item,
                   value: Currency[item as keyof typeof Currency],
@@ -85,7 +86,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
           <Col span={12}>
             <Form.Item label="Payment terms" name="paymentTerms">
               <Select
-                data-cy="establishment-select-payment-terms"
+                data-cy="enterprises-select-payment-terms"
                 options={Object.keys(PaymentTerms).map(item => ({
                   label: item,
                   value: PaymentTerms[item as keyof typeof PaymentTerms],
@@ -99,12 +100,12 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Contact person" name="contactPerson">
-              <Input data-cy="establishment-input-contact-person" />
+              <Input data-cy="enterprises-input-contact-person" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please choose the email' }]}>
-              <Input data-cy="establishment-input-email" />
+              <Input data-cy="enterprises-input-email" />
             </Form.Item>
           </Col>
         </Row>
@@ -116,12 +117,12 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               name="country"
               rules={[{ required: true, message: 'Please choose the country' }]}
             >
-              <Input data-cy="establishment-input-country" />
+              <Input data-cy="enterprises-input-country" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Street" name="street" rules={[{ required: true, message: 'Please choose the street' }]}>
-              <Input data-cy="establishment-input-street" />
+              <Input data-cy="enterprises-input-street" />
             </Form.Item>
           </Col>
         </Row>
@@ -129,7 +130,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="City" name="city" rules={[{ required: true, message: 'Please choose the city' }]}>
-              <Input />
+              <Input data-cy="enterprises-input-city" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -138,7 +139,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               name="postcode"
               rules={[{ required: true, message: 'Please choose the postcode' }]}
             >
-              <InputNumber data-cy="establishment-input-postcode" />
+              <InputNumber data-cy="enterprises-input-postcode" />
             </Form.Item>
           </Col>
         </Row>
@@ -150,7 +151,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               name="mobilePhone"
               rules={[{ required: true, message: 'Please choose the mobilePhone' }]}
             >
-              <InputNumber data-cy="establishment-input-mobile-phone" />
+              <InputNumber data-cy="enterprises-input-mobile-phone" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -160,7 +161,7 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
               rules={[{ required: true, message: 'Please choose the Type of bussiness' }]}
             >
               <Select
-                data-cy="establishment-select-bussiness-type"
+                data-cy="enterprises-select-bussiness-type"
                 options={Object.keys(BusinessType).map(item => ({
                   label: item,
                   value: BusinessType[item as keyof typeof BusinessType],
@@ -174,13 +175,13 @@ export const CreateBusinessDrawer: React.VFC<{ isVisible: boolean; setIsVisible:
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Account number" name="accountNumber">
-              <InputNumber data-cy="establishment-input-accountNumber" />
+              <InputNumber data-cy="enterprises-input-accountNumber" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Payment method" name="paymentMethod">
               <Select
-                data-cy="establishment-select-payment-method"
+                data-cy="enterprises-select-payment-method"
                 options={Object.keys(PaymentMethod).map(item => ({
                   label: item,
                   value: PaymentMethod[item as keyof typeof PaymentMethod],
