@@ -24,5 +24,6 @@ declare namespace Cypress {
       number,
       subject,
     }): Chainable;
+    loginUser(email: string, password: string): void
   }
 }
